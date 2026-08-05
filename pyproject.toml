@@ -17,6 +17,10 @@ authors = [
 ]
 dependencies = []
 
+[project.urls]
+Homepage = "https://github.com/athishio/context-gc"
+Issues = "https://github.com/athishio/context-gc/issues"
+
 [project.optional-dependencies]
 test = [
     "pytest>=7.0.0",
