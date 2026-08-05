@@ -1,0 +1,70 @@
+[
+  {"id": "e001", "type": "decision", "timestamp": 1000, "parent_id": null, "content": "Task: implement rate limiter for /api endpoints"},
+  {"id": "e002", "type": "tool_call", "timestamp": 1001, "parent_id": "e001", "tool_name": "read_file", "arguments": {"path": "rate_limiter.py"}},
+  {"id": "e003", "type": "tool_result", "timestamp": 1002, "parent_id": "e002", "call_id": "e002", "result": "file empty"},
+
+  {"id": "a01", "type": "decision", "timestamp": 1003, "parent_id": "e003", "content": "Attempt 1: Fixed window counter"},
+  {"id": "a02", "type": "tool_call", "timestamp": 1004, "parent_id": "a01", "tool_name": "write_file", "arguments": {"path": "rate_limiter.py", "content": "class FixedWindowLimiter: ..."}},
+  {"id": "a03", "type": "tool_result", "timestamp": 1005, "parent_id": "a02", "call_id": "a02", "result": "written"},
+  {"id": "a04", "type": "tool_call", "timestamp": 1006, "parent_id": "a03", "tool_name": "run_tests", "arguments": {}},
+  {"id": "a05", "type": "tool_result", "timestamp": 1007, "parent_id": "a04", "call_id": "a04", "result": "FAILED: burst boundary issues"},
+  {"id": "a06", "type": "set_var", "timestamp": 1008, "parent_id": "a05", "key": "window_size", "value": 60},
+  {"id": "a07", "type": "tool_call", "timestamp": 1009, "parent_id": "a06", "tool_name": "run_tests", "arguments": {}},
+  {"id": "a08", "type": "tool_result", "timestamp": 1010, "parent_id": "a07", "call_id": "a07", "result": "FAILED: still bursts at boundary"},
+  {"id": "a09", "type": "decision", "timestamp": 1011, "parent_id": "a08", "content": "Fixed-window is flawed, abandoning"},
+  {"id": "ab01", "type": "abandon", "timestamp": 1012, "parent_id": "a09", "ref_to": ["a01"]},
+
+  {"id": "b01", "type": "decision", "timestamp": 1020, "parent_id": "e003", "content": "Attempt 2: Sliding window log"},
+  {"id": "b02", "type": "tool_call", "timestamp": 1021, "parent_id": "b01", "tool_name": "write_file", "arguments": {"path": "rate_limiter.py", "content": "class SlidingWindowLogLimiter: ..."}},
+  {"id": "b03", "type": "tool_result", "timestamp": 1022, "parent_id": "b02", "call_id": "b02", "result": "written"},
+  {"id": "b04", "type": "tool_call", "timestamp": 1023, "parent_id": "b03", "tool_name": "run_tests", "arguments": {}},
+  {"id": "b05", "type": "tool_result", "timestamp": 1024, "parent_id": "b04", "call_id": "b04", "result": "PASSED"},
+  {"id": "b06", "type": "tool_call", "timestamp": 1025, "parent_id": "b05", "tool_name": "run_benchmark", "arguments": {}},
+  {"id": "b07", "type": "tool_result", "timestamp": 1026, "parent_id": "b06", "call_id": "b06", "result": "Memory usage scales linearly, exceeds 1GB under load"},
+  {"id": "b08", "type": "decision", "timestamp": 1027, "parent_id": "b07", "content": "Memory consumption is too high, abandoning"},
+  {"id": "ab02", "type": "abandon", "timestamp": 1028, "parent_id": "b08", "ref_to": ["b01"]},
+
+  {"id": "c01", "type": "decision", "timestamp": 1030, "parent_id": "e003", "content": "Attempt 3: Leaky bucket algorithm"},
+  {"id": "c02", "type": "tool_call", "timestamp": 1031, "parent_id": "c01", "tool_name": "write_file", "arguments": {"path": "rate_limiter.py", "content": "class LeakyBucketLimiter: ..."}},
+  {"id": "c03", "type": "tool_result", "timestamp": 1032, "parent_id": "c02", "call_id": "c02", "result": "written"},
+  {"id": "c04", "type": "tool_call", "timestamp": 1033, "parent_id": "c03", "tool_name": "run_tests", "arguments": {}},
+  {"id": "c05", "type": "tool_result", "timestamp": 1034, "parent_id": "c04", "call_id": "c04", "result": "PASSED"},
+  {"id": "c06", "type": "tool_call", "timestamp": 1035, "parent_id": "c05", "tool_name": "run_concurrency_tests", "arguments": {}},
+  {"id": "c07", "type": "tool_result", "timestamp": 1036, "parent_id": "c06", "call_id": "c06", "result": "FAILED: race condition in leak rate subtraction"},
+  {"id": "c08", "type": "set_var", "timestamp": 1037, "parent_id": "c07", "key": "leak_rate", "value": 5},
+  {"id": "c09", "type": "tool_call", "timestamp": 1038, "parent_id": "c08", "tool_name": "run_concurrency_tests", "arguments": {}},
+  {"id": "c10", "type": "tool_result", "timestamp": 1039, "parent_id": "c09", "call_id": "c09", "result": "FAILED: race condition still persists on locks"},
+  {"id": "c11", "type": "decision", "timestamp": 1040, "parent_id": "c10", "content": "Concurrency bugs too complex to solve with simple locks, abandoning"},
+  {"id": "ab03", "type": "abandon", "timestamp": 1041, "parent_id": "c11", "ref_to": ["c01"]},
+
+  {"id": "e004", "type": "decision", "timestamp": 1050, "parent_id": "e003", "content": "Pivot: Token bucket algorithm"},
+  {"id": "e005", "type": "tool_call", "timestamp": 1051, "parent_id": "e004", "tool_name": "write_file", "arguments": {"path": "rate_limiter.py", "content": "class TokenBucketLimiter: ..."}},
+  {"id": "e006", "type": "tool_result", "timestamp": 1052, "parent_id": "e005", "call_id": "e005", "result": "written"},
+
+  {"id": "ov_cap1", "type": "set_var", "timestamp": 1060, "parent_id": "e006", "key": "bucket_capacity", "value": 5},
+  {"id": "ov_cap2", "type": "set_var", "timestamp": 1061, "parent_id": "ov_cap1", "key": "bucket_capacity", "value": 10},
+  {"id": "ov_cap3", "type": "set_var", "timestamp": 1062, "parent_id": "ov_cap2", "key": "bucket_capacity", "value": 15},
+  {"id": "ov_cap4", "type": "set_var", "timestamp": 1063, "parent_id": "ov_cap3", "key": "bucket_capacity", "value": 20},
+
+  {"id": "ov_ref1", "type": "set_var", "timestamp": 1070, "parent_id": "ov_cap4", "key": "refill_rate", "value": 1},
+  {"id": "ov_ref2", "type": "set_var", "timestamp": 1071, "parent_id": "ov_ref1", "key": "refill_rate", "value": 2},
+  {"id": "ov_ref3", "type": "set_var", "timestamp": 1072, "parent_id": "ov_ref2", "key": "refill_rate", "value": 5},
+
+  {"id": "ov_to1", "type": "set_var", "timestamp": 1080, "parent_id": "ov_ref3", "key": "request_timeout", "value": 1000},
+  {"id": "ov_to2", "type": "set_var", "timestamp": 1081, "parent_id": "ov_to1", "key": "request_timeout", "value": 500},
+
+  {"id": "cy1_1", "type": "decision", "timestamp": 1090, "parent_id": "cy1_3", "content": "Tuning capacity loop 1"},
+  {"id": "cy1_2", "type": "tool_call", "timestamp": 1091, "parent_id": "cy1_1", "tool_name": "run_tests", "arguments": {"capacity": 25}},
+  {"id": "cy1_3", "type": "tool_result", "timestamp": 1092, "parent_id": "cy1_2", "call_id": "cy1_2", "result": "FAILED: burst boundary fail"},
+
+  {"id": "cy2_1", "type": "decision", "timestamp": 1100, "parent_id": "cy2_3", "content": "Tuning interval loop 2"},
+  {"id": "cy2_2", "type": "tool_call", "timestamp": 1101, "parent_id": "cy2_1", "tool_name": "run_tests", "arguments": {"refill_interval": 100}},
+  {"id": "cy2_3", "type": "tool_result", "timestamp": 1102, "parent_id": "cy2_2", "call_id": "cy2_2", "result": "FAILED: precision timing too low"},
+
+  {"id": "e008", "type": "set_var", "timestamp": 1110, "parent_id": "cy1_3", "key": "bucket_capacity", "value": 50},
+  {"id": "e009", "type": "set_var", "timestamp": 1111, "parent_id": "e008", "key": "refill_rate", "value": 10},
+  {"id": "e010", "type": "set_var", "timestamp": 1112, "parent_id": "e009", "key": "request_timeout", "value": 200},
+  {"id": "e011", "type": "tool_call", "timestamp": 1113, "parent_id": "cy2_3", "tool_name": "run_tests", "arguments": {}},
+  {"id": "e012", "type": "tool_result", "timestamp": 1114, "parent_id": "e011", "call_id": "e011", "result": "PASSED: all tests pass under load"},
+  {"id": "e013", "type": "decision", "timestamp": 1115, "parent_id": "e012", "content": "Token bucket fully verified"}
+]

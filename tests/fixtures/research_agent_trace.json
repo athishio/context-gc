@@ -1,0 +1,21 @@
+[
+  {"id": "r01", "type": "decision", "timestamp": 1000, "parent_id": null, "content": "Goal: Research the main cause of the Bronze Age Collapse."},
+  {"id": "r02", "type": "set_var", "timestamp": 1010, "parent_id": "r01", "key": "current_hypothesis", "value": "System collapse triggered by Sea Peoples invasions"},
+  {"id": "r03", "type": "set_var", "timestamp": 1020, "parent_id": "r02", "key": "best_source", "value": "Ramses III inscription at Medinet Habu"},
+  {"id": "r04", "type": "tool_call", "timestamp": 1030, "parent_id": "r03", "tool_name": "search_library", "arguments": {"query": "Sea Peoples Bronze Age Collapse"}},
+  {"id": "r05", "type": "tool_result", "timestamp": 1040, "parent_id": "r04", "call_id": "r04", "result": "Medinet Habu inscriptions detail battles against Peleset and Tjekker, but note massive famine preceding their arrival."},
+  {"id": "ra01", "type": "decision", "timestamp": 1050, "parent_id": "r05", "content": "Investigate if Sea Peoples were the sole primary cause by looking at Ugarit tablet translations."},
+  {"id": "ra02", "type": "tool_call", "timestamp": 1060, "parent_id": "ra01", "tool_name": "fetch_text", "arguments": {"source_id": "RS 20.212"}},
+  {"id": "ra03", "type": "tool_result", "timestamp": 1070, "parent_id": "ra02", "call_id": "ra02", "result": "Letter from king of Ugarit: 'All my troops and chariots are in the Land of Hatti, and all my ships are in the Land of Lukka... The enemy ships have arrived, cities burned.'"},
+  {"id": "ra04", "type": "decision", "timestamp": 1080, "parent_id": "ra03", "content": "Ugarit letter suggests sudden military raid, but we need to see if this was isolated. Attempting to match with pottery migration patterns in the Southern Levant."},
+  {"id": "ra05", "type": "tool_call", "timestamp": 1090, "parent_id": "ra04", "tool_name": "get_pottery_db", "arguments": {"region": "Levant", "period": "LH IIIC"}},
+  {"id": "ra06", "type": "tool_result", "timestamp": 1100, "parent_id": "ra05", "call_id": "ra05", "result": "LH IIIC pottery is locally produced imitation of Mycenaean style, suggesting gradual assimilation of refugees rather than a violent invasion force."},
+  {"id": "ra07", "type": "decision", "timestamp": 1110, "parent_id": "ra06", "content": "Refugee pottery style contradicts the sole military invasion theory. The military-only model is a dead-end."},
+  {"id": "rab01", "type": "abandon", "timestamp": 1120, "parent_id": "ra07", "ref_to": ["ra01"]},
+  {"id": "r06", "type": "decision", "timestamp": 1130, "parent_id": "r05", "content": "Since famine was noted before the migrations, pivot to climate proxy data showing drought patterns."},
+  {"id": "r07", "type": "tool_call", "timestamp": 1140, "parent_id": "r06", "tool_name": "get_climate_proxies", "arguments": {"region": "Eastern Mediterranean", "period": "1200 BCE"}},
+  {"id": "r08", "type": "tool_result", "timestamp": 1150, "parent_id": "r07", "call_id": "r07", "result": "Pollen and sediment cores from Larnaca Salt Lake show a severe, multi-century drought starting around 1200 BCE."},
+  {"id": "r09", "type": "set_var", "timestamp": 1160, "parent_id": "r08", "key": "current_hypothesis", "value": "Climate-induced drought caused agricultural failure, driving mass migration and systemic collapse."},
+  {"id": "r10", "type": "set_var", "timestamp": 1170, "parent_id": "r09", "key": "best_source", "value": "Larnaca Lake pollen core data, Kaniewski et al."},
+  {"id": "r11", "type": "decision", "timestamp": 1180, "parent_id": "r10", "content": "Conclusion: Severe drought (proven by Larnaca cores) triggered agricultural failure, driving refugee migrations (Sea Peoples) and destroying trade networks, leading to systemic collapse."}
+]

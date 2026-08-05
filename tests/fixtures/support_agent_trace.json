@@ -1,0 +1,19 @@
+[
+  {"id": "s01", "type": "decision", "timestamp": 1000, "parent_id": null, "content": "Goal: Resolve customer query regarding a missing package."},
+  {"id": "sa01", "type": "decision", "timestamp": 1010, "parent_id": "s01", "content": "Querying legacy CRM system for ticket ID."},
+  {"id": "sa02", "type": "tool_call", "timestamp": 1020, "parent_id": "sa01", "tool_name": "lookup_legacy_ticket", "arguments": {"email": "user@example.com"}},
+  {"id": "sa03", "type": "tool_result", "timestamp": 1030, "parent_id": "sa02", "call_id": "sa02", "result": {"ticket_id": "tkt_5531"}},
+  {"id": "sa04", "type": "abandon", "timestamp": 1040, "parent_id": "sa03", "ref_to": ["sa01"]},
+  {"id": "s02", "type": "decision", "timestamp": 1050, "parent_id": "s01", "content": "Legacy CRM is deprecated. Pivoting to modern customer account service."},
+  {"id": "s03", "type": "tool_call", "timestamp": 1060, "parent_id": "s02", "tool_name": "lookup_account", "arguments": {"email": "user@example.com"}},
+  {"id": "s04", "type": "tool_result", "timestamp": 1070, "parent_id": "s03", "call_id": "s03", "result": {"account_id": "acc_8812"}},
+  {"id": "s05", "type": "set_var", "timestamp": 1080, "parent_id": "s04", "key": "ticket_status", "value": "open"},
+  {"id": "s06", "type": "decision", "timestamp": 1090, "parent_id": "s05", "content": "Package confirmed lost. Issuing refund for account acc_8812 under ticket tkt_5531."},
+  {"id": "s07", "type": "tool_call", "timestamp": 1100, "parent_id": "s06", "tool_name": "issue_refund", "arguments": {"account_id": "acc_8812", "amount": 120.00}},
+  {"id": "s08", "type": "tool_result", "timestamp": 1110, "parent_id": "s07", "call_id": "s07", "result": {"status": "success", "refund_id": "ref_9041"}},
+  {"id": "s09", "type": "set_var", "timestamp": 1120, "parent_id": "s08", "key": "ticket_status", "value": "refunded"},
+  {"id": "s10", "type": "decision", "timestamp": 1130, "parent_id": "s09", "content": "Send email confirmation referencing ticket tkt_5531 and refund ref_9041."},
+  {"id": "s11", "type": "tool_call", "timestamp": 1140, "parent_id": "s10", "tool_name": "send_email", "arguments": {"email": "user@example.com", "subject": "Refund Confirmation for Ticket tkt_5531", "body": "Your refund ref_9041 has been processed."}},
+  {"id": "s12", "type": "tool_result", "timestamp": 1150, "parent_id": "s11", "call_id": "s11", "result": "Email sent successfully"},
+  {"id": "s13", "type": "decision", "timestamp": 1160, "parent_id": "s12", "content": "Ticket tkt_5531 processed successfully with refund ref_9041."}
+]

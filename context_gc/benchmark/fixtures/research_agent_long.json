@@ -1,0 +1,1287 @@
+{
+  "events": [
+    {
+      "id": "e01",
+      "type": "decision",
+      "timestamp": 1000,
+      "parent_id": null,
+      "content": "Research: CRISPR Cas9 off-target mutations"
+    },
+    {
+      "id": "e02",
+      "type": "set_var",
+      "timestamp": 1010,
+      "parent_id": "e01",
+      "key": "search_db",
+      "value": "pubmed"
+    },
+    {
+      "id": "e03",
+      "type": "set_var",
+      "timestamp": 1020,
+      "parent_id": "e02",
+      "key": "target_organism",
+      "value": "human"
+    },
+    {
+      "id": "ab_branch_1",
+      "type": "decision",
+      "timestamp": 1040,
+      "parent_id": "e03",
+      "content": "Query search option 1"
+    },
+    {
+      "id": "tc_a_1",
+      "type": "tool_call",
+      "timestamp": 1041,
+      "parent_id": "ab_branch_1",
+      "tool_name": "pubmed_search_opt_1",
+      "arguments": {}
+    },
+    {
+      "id": "tr_a_1",
+      "type": "tool_result",
+      "timestamp": 1042,
+      "parent_id": "tc_a_1",
+      "call_id": "tc_a_1",
+      "result": "yielded zero relevance papers under options 1"
+    },
+    {
+      "id": "ab_end_1",
+      "type": "abandon",
+      "timestamp": 1043,
+      "parent_id": "tr_a_1",
+      "ref_to": [
+        "ab_branch_1"
+      ]
+    },
+    {
+      "id": "ab_branch_2",
+      "type": "decision",
+      "timestamp": 1050,
+      "parent_id": "e03",
+      "content": "Query search option 2"
+    },
+    {
+      "id": "tc_a_2",
+      "type": "tool_call",
+      "timestamp": 1051,
+      "parent_id": "ab_branch_2",
+      "tool_name": "pubmed_search_opt_2",
+      "arguments": {}
+    },
+    {
+      "id": "tr_a_2",
+      "type": "tool_result",
+      "timestamp": 1052,
+      "parent_id": "tc_a_2",
+      "call_id": "tc_a_2",
+      "result": "yielded zero relevance papers under options 2"
+    },
+    {
+      "id": "ab_end_2",
+      "type": "abandon",
+      "timestamp": 1053,
+      "parent_id": "tr_a_2",
+      "ref_to": [
+        "ab_branch_2"
+      ]
+    },
+    {
+      "id": "ab_branch_3",
+      "type": "decision",
+      "timestamp": 1060,
+      "parent_id": "e03",
+      "content": "Query search option 3"
+    },
+    {
+      "id": "tc_a_3",
+      "type": "tool_call",
+      "timestamp": 1061,
+      "parent_id": "ab_branch_3",
+      "tool_name": "pubmed_search_opt_3",
+      "arguments": {}
+    },
+    {
+      "id": "tr_a_3",
+      "type": "tool_result",
+      "timestamp": 1062,
+      "parent_id": "tc_a_3",
+      "call_id": "tc_a_3",
+      "result": "yielded zero relevance papers under options 3"
+    },
+    {
+      "id": "ab_end_3",
+      "type": "abandon",
+      "timestamp": 1063,
+      "parent_id": "tr_a_3",
+      "ref_to": [
+        "ab_branch_3"
+      ]
+    },
+    {
+      "id": "ab_branch_4",
+      "type": "decision",
+      "timestamp": 1070,
+      "parent_id": "e03",
+      "content": "Query search option 4"
+    },
+    {
+      "id": "tc_a_4",
+      "type": "tool_call",
+      "timestamp": 1071,
+      "parent_id": "ab_branch_4",
+      "tool_name": "pubmed_search_opt_4",
+      "arguments": {}
+    },
+    {
+      "id": "tr_a_4",
+      "type": "tool_result",
+      "timestamp": 1072,
+      "parent_id": "tc_a_4",
+      "call_id": "tc_a_4",
+      "result": "yielded zero relevance papers under options 4"
+    },
+    {
+      "id": "ab_end_4",
+      "type": "abandon",
+      "timestamp": 1073,
+      "parent_id": "tr_a_4",
+      "ref_to": [
+        "ab_branch_4"
+      ]
+    },
+    {
+      "id": "ab_branch_5",
+      "type": "decision",
+      "timestamp": 1080,
+      "parent_id": "e03",
+      "content": "Query search option 5"
+    },
+    {
+      "id": "tc_a_5",
+      "type": "tool_call",
+      "timestamp": 1081,
+      "parent_id": "ab_branch_5",
+      "tool_name": "pubmed_search_opt_5",
+      "arguments": {}
+    },
+    {
+      "id": "tr_a_5",
+      "type": "tool_result",
+      "timestamp": 1082,
+      "parent_id": "tc_a_5",
+      "call_id": "tc_a_5",
+      "result": "yielded zero relevance papers under options 5"
+    },
+    {
+      "id": "ab_end_5",
+      "type": "abandon",
+      "timestamp": 1083,
+      "parent_id": "tr_a_5",
+      "ref_to": [
+        "ab_branch_5"
+      ]
+    },
+    {
+      "id": "ab_branch_6",
+      "type": "decision",
+      "timestamp": 1090,
+      "parent_id": "e03",
+      "content": "Query search option 6"
+    },
+    {
+      "id": "tc_a_6",
+      "type": "tool_call",
+      "timestamp": 1091,
+      "parent_id": "ab_branch_6",
+      "tool_name": "pubmed_search_opt_6",
+      "arguments": {}
+    },
+    {
+      "id": "tr_a_6",
+      "type": "tool_result",
+      "timestamp": 1092,
+      "parent_id": "tc_a_6",
+      "call_id": "tc_a_6",
+      "result": "yielded zero relevance papers under options 6"
+    },
+    {
+      "id": "ab_end_6",
+      "type": "abandon",
+      "timestamp": 1093,
+      "parent_id": "tr_a_6",
+      "ref_to": [
+        "ab_branch_6"
+      ]
+    },
+    {
+      "id": "ab_branch_7",
+      "type": "decision",
+      "timestamp": 1100,
+      "parent_id": "e03",
+      "content": "Query search option 7"
+    },
+    {
+      "id": "tc_a_7",
+      "type": "tool_call",
+      "timestamp": 1101,
+      "parent_id": "ab_branch_7",
+      "tool_name": "pubmed_search_opt_7",
+      "arguments": {}
+    },
+    {
+      "id": "tr_a_7",
+      "type": "tool_result",
+      "timestamp": 1102,
+      "parent_id": "tc_a_7",
+      "call_id": "tc_a_7",
+      "result": "yielded zero relevance papers under options 7"
+    },
+    {
+      "id": "ab_end_7",
+      "type": "abandon",
+      "timestamp": 1103,
+      "parent_id": "tr_a_7",
+      "ref_to": [
+        "ab_branch_7"
+      ]
+    },
+    {
+      "id": "ab_branch_8",
+      "type": "decision",
+      "timestamp": 1110,
+      "parent_id": "e03",
+      "content": "Query search option 8"
+    },
+    {
+      "id": "tc_a_8",
+      "type": "tool_call",
+      "timestamp": 1111,
+      "parent_id": "ab_branch_8",
+      "tool_name": "pubmed_search_opt_8",
+      "arguments": {}
+    },
+    {
+      "id": "tr_a_8",
+      "type": "tool_result",
+      "timestamp": 1112,
+      "parent_id": "tc_a_8",
+      "call_id": "tc_a_8",
+      "result": "yielded zero relevance papers under options 8"
+    },
+    {
+      "id": "ab_end_8",
+      "type": "abandon",
+      "timestamp": 1113,
+      "parent_id": "tr_a_8",
+      "ref_to": [
+        "ab_branch_8"
+      ]
+    },
+    {
+      "id": "e04",
+      "type": "decision",
+      "timestamp": 1150,
+      "parent_id": "e03",
+      "content": "Pubmed yields dry. Pivoting to EuropePMC database for full-text search"
+    },
+    {
+      "id": "e05",
+      "type": "set_var",
+      "timestamp": 1160,
+      "parent_id": "e04",
+      "key": "search_db",
+      "value": "europepmc"
+    },
+    {
+      "id": "tc_crawl_1",
+      "type": "tool_call",
+      "timestamp": 1180,
+      "parent_id": "e05",
+      "tool_name": "fetch_pmcid",
+      "arguments": {
+        "pmcid": "PMC2421"
+      }
+    },
+    {
+      "id": "tr_crawl_1",
+      "type": "tool_result",
+      "timestamp": 1185,
+      "parent_id": "tc_crawl_1",
+      "call_id": "tc_crawl_1",
+      "result": "extracted PMID 1 off-target guide: GACT1"
+    },
+    {
+      "id": "v_set_1",
+      "type": "set_var",
+      "timestamp": 1188,
+      "parent_id": "tr_crawl_1",
+      "key": "active_paper",
+      "value": "PMC2421"
+    },
+    {
+      "id": "tc_crawl_2",
+      "type": "tool_call",
+      "timestamp": 1190,
+      "parent_id": "v_set_1",
+      "tool_name": "fetch_pmcid",
+      "arguments": {
+        "pmcid": "PMC2422"
+      }
+    },
+    {
+      "id": "tr_crawl_2",
+      "type": "tool_result",
+      "timestamp": 1195,
+      "parent_id": "tc_crawl_2",
+      "call_id": "tc_crawl_2",
+      "result": "extracted PMID 2 off-target guide: GACT2"
+    },
+    {
+      "id": "v_set_2",
+      "type": "set_var",
+      "timestamp": 1198,
+      "parent_id": "tr_crawl_2",
+      "key": "active_paper",
+      "value": "PMC2422"
+    },
+    {
+      "id": "tc_crawl_3",
+      "type": "tool_call",
+      "timestamp": 1200,
+      "parent_id": "v_set_2",
+      "tool_name": "fetch_pmcid",
+      "arguments": {
+        "pmcid": "PMC2423"
+      }
+    },
+    {
+      "id": "tr_crawl_3",
+      "type": "tool_result",
+      "timestamp": 1205,
+      "parent_id": "tc_crawl_3",
+      "call_id": "tc_crawl_3",
+      "result": "extracted PMID 3 off-target guide: GACT3"
+    },
+    {
+      "id": "v_set_3",
+      "type": "set_var",
+      "timestamp": 1208,
+      "parent_id": "tr_crawl_3",
+      "key": "active_paper",
+      "value": "PMC2423"
+    },
+    {
+      "id": "tc_crawl_4",
+      "type": "tool_call",
+      "timestamp": 1210,
+      "parent_id": "v_set_3",
+      "tool_name": "fetch_pmcid",
+      "arguments": {
+        "pmcid": "PMC2424"
+      }
+    },
+    {
+      "id": "tr_crawl_4",
+      "type": "tool_result",
+      "timestamp": 1215,
+      "parent_id": "tc_crawl_4",
+      "call_id": "tc_crawl_4",
+      "result": "extracted PMID 4 off-target guide: GACT4"
+    },
+    {
+      "id": "v_set_4",
+      "type": "set_var",
+      "timestamp": 1218,
+      "parent_id": "tr_crawl_4",
+      "key": "active_paper",
+      "value": "PMC2424"
+    },
+    {
+      "id": "tc_crawl_5",
+      "type": "tool_call",
+      "timestamp": 1220,
+      "parent_id": "v_set_4",
+      "tool_name": "fetch_pmcid",
+      "arguments": {
+        "pmcid": "PMC2425"
+      }
+    },
+    {
+      "id": "tr_crawl_5",
+      "type": "tool_result",
+      "timestamp": 1225,
+      "parent_id": "tc_crawl_5",
+      "call_id": "tc_crawl_5",
+      "result": "extracted PMID 5 off-target guide: GACT5"
+    },
+    {
+      "id": "v_set_5",
+      "type": "set_var",
+      "timestamp": 1228,
+      "parent_id": "tr_crawl_5",
+      "key": "active_paper",
+      "value": "PMC2425"
+    },
+    {
+      "id": "tc_crawl_6",
+      "type": "tool_call",
+      "timestamp": 1230,
+      "parent_id": "v_set_5",
+      "tool_name": "fetch_pmcid",
+      "arguments": {
+        "pmcid": "PMC2426"
+      }
+    },
+    {
+      "id": "tr_crawl_6",
+      "type": "tool_result",
+      "timestamp": 1235,
+      "parent_id": "tc_crawl_6",
+      "call_id": "tc_crawl_6",
+      "result": "extracted PMID 6 off-target guide: GACT6"
+    },
+    {
+      "id": "v_set_6",
+      "type": "set_var",
+      "timestamp": 1238,
+      "parent_id": "tr_crawl_6",
+      "key": "active_paper",
+      "value": "PMC2426"
+    },
+    {
+      "id": "tc_crawl_7",
+      "type": "tool_call",
+      "timestamp": 1240,
+      "parent_id": "v_set_6",
+      "tool_name": "fetch_pmcid",
+      "arguments": {
+        "pmcid": "PMC2427"
+      }
+    },
+    {
+      "id": "tr_crawl_7",
+      "type": "tool_result",
+      "timestamp": 1245,
+      "parent_id": "tc_crawl_7",
+      "call_id": "tc_crawl_7",
+      "result": "extracted PMID 7 off-target guide: GACT7"
+    },
+    {
+      "id": "v_set_7",
+      "type": "set_var",
+      "timestamp": 1248,
+      "parent_id": "tr_crawl_7",
+      "key": "active_paper",
+      "value": "PMC2427"
+    },
+    {
+      "id": "tc_crawl_8",
+      "type": "tool_call",
+      "timestamp": 1250,
+      "parent_id": "v_set_7",
+      "tool_name": "fetch_pmcid",
+      "arguments": {
+        "pmcid": "PMC2428"
+      }
+    },
+    {
+      "id": "tr_crawl_8",
+      "type": "tool_result",
+      "timestamp": 1255,
+      "parent_id": "tc_crawl_8",
+      "call_id": "tc_crawl_8",
+      "result": "extracted PMID 8 off-target guide: GACT8"
+    },
+    {
+      "id": "v_set_8",
+      "type": "set_var",
+      "timestamp": 1258,
+      "parent_id": "tr_crawl_8",
+      "key": "active_paper",
+      "value": "PMC2428"
+    },
+    {
+      "id": "tc_crawl_9",
+      "type": "tool_call",
+      "timestamp": 1260,
+      "parent_id": "v_set_8",
+      "tool_name": "fetch_pmcid",
+      "arguments": {
+        "pmcid": "PMC2429"
+      }
+    },
+    {
+      "id": "tr_crawl_9",
+      "type": "tool_result",
+      "timestamp": 1265,
+      "parent_id": "tc_crawl_9",
+      "call_id": "tc_crawl_9",
+      "result": "extracted PMID 9 off-target guide: GACT9"
+    },
+    {
+      "id": "v_set_9",
+      "type": "set_var",
+      "timestamp": 1268,
+      "parent_id": "tr_crawl_9",
+      "key": "active_paper",
+      "value": "PMC2429"
+    },
+    {
+      "id": "tc_crawl_10",
+      "type": "tool_call",
+      "timestamp": 1270,
+      "parent_id": "v_set_9",
+      "tool_name": "fetch_pmcid",
+      "arguments": {
+        "pmcid": "PMC24210"
+      }
+    },
+    {
+      "id": "tr_crawl_10",
+      "type": "tool_result",
+      "timestamp": 1275,
+      "parent_id": "tc_crawl_10",
+      "call_id": "tc_crawl_10",
+      "result": "extracted PMID 10 off-target guide: GACT10"
+    },
+    {
+      "id": "v_set_10",
+      "type": "set_var",
+      "timestamp": 1278,
+      "parent_id": "tr_crawl_10",
+      "key": "active_paper",
+      "value": "PMC24210"
+    },
+    {
+      "id": "tc_crawl_11",
+      "type": "tool_call",
+      "timestamp": 1280,
+      "parent_id": "v_set_10",
+      "tool_name": "fetch_pmcid",
+      "arguments": {
+        "pmcid": "PMC24211"
+      }
+    },
+    {
+      "id": "tr_crawl_11",
+      "type": "tool_result",
+      "timestamp": 1285,
+      "parent_id": "tc_crawl_11",
+      "call_id": "tc_crawl_11",
+      "result": "extracted PMID 11 off-target guide: GACT11"
+    },
+    {
+      "id": "v_set_11",
+      "type": "set_var",
+      "timestamp": 1288,
+      "parent_id": "tr_crawl_11",
+      "key": "active_paper",
+      "value": "PMC24211"
+    },
+    {
+      "id": "tc_crawl_12",
+      "type": "tool_call",
+      "timestamp": 1290,
+      "parent_id": "v_set_11",
+      "tool_name": "fetch_pmcid",
+      "arguments": {
+        "pmcid": "PMC24212"
+      }
+    },
+    {
+      "id": "tr_crawl_12",
+      "type": "tool_result",
+      "timestamp": 1295,
+      "parent_id": "tc_crawl_12",
+      "call_id": "tc_crawl_12",
+      "result": "extracted PMID 12 off-target guide: GACT12"
+    },
+    {
+      "id": "v_set_12",
+      "type": "set_var",
+      "timestamp": 1298,
+      "parent_id": "tr_crawl_12",
+      "key": "active_paper",
+      "value": "PMC24212"
+    },
+    {
+      "id": "tc_crawl_13",
+      "type": "tool_call",
+      "timestamp": 1300,
+      "parent_id": "v_set_12",
+      "tool_name": "fetch_pmcid",
+      "arguments": {
+        "pmcid": "PMC24213"
+      }
+    },
+    {
+      "id": "tr_crawl_13",
+      "type": "tool_result",
+      "timestamp": 1305,
+      "parent_id": "tc_crawl_13",
+      "call_id": "tc_crawl_13",
+      "result": "extracted PMID 13 off-target guide: GACT13"
+    },
+    {
+      "id": "v_set_13",
+      "type": "set_var",
+      "timestamp": 1308,
+      "parent_id": "tr_crawl_13",
+      "key": "active_paper",
+      "value": "PMC24213"
+    },
+    {
+      "id": "tc_crawl_14",
+      "type": "tool_call",
+      "timestamp": 1310,
+      "parent_id": "v_set_13",
+      "tool_name": "fetch_pmcid",
+      "arguments": {
+        "pmcid": "PMC24214"
+      }
+    },
+    {
+      "id": "tr_crawl_14",
+      "type": "tool_result",
+      "timestamp": 1315,
+      "parent_id": "tc_crawl_14",
+      "call_id": "tc_crawl_14",
+      "result": "extracted PMID 14 off-target guide: GACT14"
+    },
+    {
+      "id": "v_set_14",
+      "type": "set_var",
+      "timestamp": 1318,
+      "parent_id": "tr_crawl_14",
+      "key": "active_paper",
+      "value": "PMC24214"
+    },
+    {
+      "id": "tc_crawl_15",
+      "type": "tool_call",
+      "timestamp": 1320,
+      "parent_id": "v_set_14",
+      "tool_name": "fetch_pmcid",
+      "arguments": {
+        "pmcid": "PMC24215"
+      }
+    },
+    {
+      "id": "tr_crawl_15",
+      "type": "tool_result",
+      "timestamp": 1325,
+      "parent_id": "tc_crawl_15",
+      "call_id": "tc_crawl_15",
+      "result": "extracted PMID 15 off-target guide: GACT15"
+    },
+    {
+      "id": "v_set_15",
+      "type": "set_var",
+      "timestamp": 1328,
+      "parent_id": "tr_crawl_15",
+      "key": "active_paper",
+      "value": "PMC24215"
+    },
+    {
+      "id": "tc_crawl_16",
+      "type": "tool_call",
+      "timestamp": 1330,
+      "parent_id": "v_set_15",
+      "tool_name": "fetch_pmcid",
+      "arguments": {
+        "pmcid": "PMC24216"
+      }
+    },
+    {
+      "id": "tr_crawl_16",
+      "type": "tool_result",
+      "timestamp": 1335,
+      "parent_id": "tc_crawl_16",
+      "call_id": "tc_crawl_16",
+      "result": "extracted PMID 16 off-target guide: GACT16"
+    },
+    {
+      "id": "v_set_16",
+      "type": "set_var",
+      "timestamp": 1338,
+      "parent_id": "tr_crawl_16",
+      "key": "active_paper",
+      "value": "PMC24216"
+    },
+    {
+      "id": "tc_crawl_17",
+      "type": "tool_call",
+      "timestamp": 1340,
+      "parent_id": "v_set_16",
+      "tool_name": "fetch_pmcid",
+      "arguments": {
+        "pmcid": "PMC24217"
+      }
+    },
+    {
+      "id": "tr_crawl_17",
+      "type": "tool_result",
+      "timestamp": 1345,
+      "parent_id": "tc_crawl_17",
+      "call_id": "tc_crawl_17",
+      "result": "extracted PMID 17 off-target guide: GACT17"
+    },
+    {
+      "id": "v_set_17",
+      "type": "set_var",
+      "timestamp": 1348,
+      "parent_id": "tr_crawl_17",
+      "key": "active_paper",
+      "value": "PMC24217"
+    },
+    {
+      "id": "tc_crawl_18",
+      "type": "tool_call",
+      "timestamp": 1350,
+      "parent_id": "v_set_17",
+      "tool_name": "fetch_pmcid",
+      "arguments": {
+        "pmcid": "PMC24218"
+      }
+    },
+    {
+      "id": "tr_crawl_18",
+      "type": "tool_result",
+      "timestamp": 1355,
+      "parent_id": "tc_crawl_18",
+      "call_id": "tc_crawl_18",
+      "result": "extracted PMID 18 off-target guide: GACT18"
+    },
+    {
+      "id": "v_set_18",
+      "type": "set_var",
+      "timestamp": 1358,
+      "parent_id": "tr_crawl_18",
+      "key": "active_paper",
+      "value": "PMC24218"
+    },
+    {
+      "id": "tc_crawl_19",
+      "type": "tool_call",
+      "timestamp": 1360,
+      "parent_id": "v_set_18",
+      "tool_name": "fetch_pmcid",
+      "arguments": {
+        "pmcid": "PMC24219"
+      }
+    },
+    {
+      "id": "tr_crawl_19",
+      "type": "tool_result",
+      "timestamp": 1365,
+      "parent_id": "tc_crawl_19",
+      "call_id": "tc_crawl_19",
+      "result": "extracted PMID 19 off-target guide: GACT19"
+    },
+    {
+      "id": "v_set_19",
+      "type": "set_var",
+      "timestamp": 1368,
+      "parent_id": "tr_crawl_19",
+      "key": "active_paper",
+      "value": "PMC24219"
+    },
+    {
+      "id": "tc_crawl_20",
+      "type": "tool_call",
+      "timestamp": 1370,
+      "parent_id": "v_set_19",
+      "tool_name": "fetch_pmcid",
+      "arguments": {
+        "pmcid": "PMC24220"
+      }
+    },
+    {
+      "id": "tr_crawl_20",
+      "type": "tool_result",
+      "timestamp": 1375,
+      "parent_id": "tc_crawl_20",
+      "call_id": "tc_crawl_20",
+      "result": "extracted PMID 20 off-target guide: GACT20"
+    },
+    {
+      "id": "v_set_20",
+      "type": "set_var",
+      "timestamp": 1378,
+      "parent_id": "tr_crawl_20",
+      "key": "active_paper",
+      "value": "PMC24220"
+    },
+    {
+      "id": "tc_crawl_21",
+      "type": "tool_call",
+      "timestamp": 1380,
+      "parent_id": "v_set_20",
+      "tool_name": "fetch_pmcid",
+      "arguments": {
+        "pmcid": "PMC24221"
+      }
+    },
+    {
+      "id": "tr_crawl_21",
+      "type": "tool_result",
+      "timestamp": 1385,
+      "parent_id": "tc_crawl_21",
+      "call_id": "tc_crawl_21",
+      "result": "extracted PMID 21 off-target guide: GACT21"
+    },
+    {
+      "id": "v_set_21",
+      "type": "set_var",
+      "timestamp": 1388,
+      "parent_id": "tr_crawl_21",
+      "key": "active_paper",
+      "value": "PMC24221"
+    },
+    {
+      "id": "tc_crawl_22",
+      "type": "tool_call",
+      "timestamp": 1390,
+      "parent_id": "v_set_21",
+      "tool_name": "fetch_pmcid",
+      "arguments": {
+        "pmcid": "PMC24222"
+      }
+    },
+    {
+      "id": "tr_crawl_22",
+      "type": "tool_result",
+      "timestamp": 1395,
+      "parent_id": "tc_crawl_22",
+      "call_id": "tc_crawl_22",
+      "result": "extracted PMID 22 off-target guide: GACT22"
+    },
+    {
+      "id": "v_set_22",
+      "type": "set_var",
+      "timestamp": 1398,
+      "parent_id": "tr_crawl_22",
+      "key": "active_paper",
+      "value": "PMC24222"
+    },
+    {
+      "id": "tc_crawl_23",
+      "type": "tool_call",
+      "timestamp": 1400,
+      "parent_id": "v_set_22",
+      "tool_name": "fetch_pmcid",
+      "arguments": {
+        "pmcid": "PMC24223"
+      }
+    },
+    {
+      "id": "tr_crawl_23",
+      "type": "tool_result",
+      "timestamp": 1405,
+      "parent_id": "tc_crawl_23",
+      "call_id": "tc_crawl_23",
+      "result": "extracted PMID 23 off-target guide: GACT23"
+    },
+    {
+      "id": "v_set_23",
+      "type": "set_var",
+      "timestamp": 1408,
+      "parent_id": "tr_crawl_23",
+      "key": "active_paper",
+      "value": "PMC24223"
+    },
+    {
+      "id": "tc_crawl_24",
+      "type": "tool_call",
+      "timestamp": 1410,
+      "parent_id": "v_set_23",
+      "tool_name": "fetch_pmcid",
+      "arguments": {
+        "pmcid": "PMC24224"
+      }
+    },
+    {
+      "id": "tr_crawl_24",
+      "type": "tool_result",
+      "timestamp": 1415,
+      "parent_id": "tc_crawl_24",
+      "call_id": "tc_crawl_24",
+      "result": "extracted PMID 24 off-target guide: GACT24"
+    },
+    {
+      "id": "v_set_24",
+      "type": "set_var",
+      "timestamp": 1418,
+      "parent_id": "tr_crawl_24",
+      "key": "active_paper",
+      "value": "PMC24224"
+    },
+    {
+      "id": "tc_crawl_25",
+      "type": "tool_call",
+      "timestamp": 1420,
+      "parent_id": "v_set_24",
+      "tool_name": "fetch_pmcid",
+      "arguments": {
+        "pmcid": "PMC24225"
+      }
+    },
+    {
+      "id": "tr_crawl_25",
+      "type": "tool_result",
+      "timestamp": 1425,
+      "parent_id": "tc_crawl_25",
+      "call_id": "tc_crawl_25",
+      "result": "extracted PMID 25 off-target guide: GACT25"
+    },
+    {
+      "id": "v_set_25",
+      "type": "set_var",
+      "timestamp": 1428,
+      "parent_id": "tr_crawl_25",
+      "key": "active_paper",
+      "value": "PMC24225"
+    },
+    {
+      "id": "tc_crawl_26",
+      "type": "tool_call",
+      "timestamp": 1430,
+      "parent_id": "v_set_25",
+      "tool_name": "fetch_pmcid",
+      "arguments": {
+        "pmcid": "PMC24226"
+      }
+    },
+    {
+      "id": "tr_crawl_26",
+      "type": "tool_result",
+      "timestamp": 1435,
+      "parent_id": "tc_crawl_26",
+      "call_id": "tc_crawl_26",
+      "result": "extracted PMID 26 off-target guide: GACT26"
+    },
+    {
+      "id": "v_set_26",
+      "type": "set_var",
+      "timestamp": 1438,
+      "parent_id": "tr_crawl_26",
+      "key": "active_paper",
+      "value": "PMC24226"
+    },
+    {
+      "id": "tc_crawl_27",
+      "type": "tool_call",
+      "timestamp": 1440,
+      "parent_id": "v_set_26",
+      "tool_name": "fetch_pmcid",
+      "arguments": {
+        "pmcid": "PMC24227"
+      }
+    },
+    {
+      "id": "tr_crawl_27",
+      "type": "tool_result",
+      "timestamp": 1445,
+      "parent_id": "tc_crawl_27",
+      "call_id": "tc_crawl_27",
+      "result": "extracted PMID 27 off-target guide: GACT27"
+    },
+    {
+      "id": "v_set_27",
+      "type": "set_var",
+      "timestamp": 1448,
+      "parent_id": "tr_crawl_27",
+      "key": "active_paper",
+      "value": "PMC24227"
+    },
+    {
+      "id": "tc_crawl_28",
+      "type": "tool_call",
+      "timestamp": 1450,
+      "parent_id": "v_set_27",
+      "tool_name": "fetch_pmcid",
+      "arguments": {
+        "pmcid": "PMC24228"
+      }
+    },
+    {
+      "id": "tr_crawl_28",
+      "type": "tool_result",
+      "timestamp": 1455,
+      "parent_id": "tc_crawl_28",
+      "call_id": "tc_crawl_28",
+      "result": "extracted PMID 28 off-target guide: GACT28"
+    },
+    {
+      "id": "v_set_28",
+      "type": "set_var",
+      "timestamp": 1458,
+      "parent_id": "tr_crawl_28",
+      "key": "active_paper",
+      "value": "PMC24228"
+    },
+    {
+      "id": "tc_crawl_29",
+      "type": "tool_call",
+      "timestamp": 1460,
+      "parent_id": "v_set_28",
+      "tool_name": "fetch_pmcid",
+      "arguments": {
+        "pmcid": "PMC24229"
+      }
+    },
+    {
+      "id": "tr_crawl_29",
+      "type": "tool_result",
+      "timestamp": 1465,
+      "parent_id": "tc_crawl_29",
+      "call_id": "tc_crawl_29",
+      "result": "extracted PMID 29 off-target guide: GACT29"
+    },
+    {
+      "id": "v_set_29",
+      "type": "set_var",
+      "timestamp": 1468,
+      "parent_id": "tr_crawl_29",
+      "key": "active_paper",
+      "value": "PMC24229"
+    },
+    {
+      "id": "tc_crawl_30",
+      "type": "tool_call",
+      "timestamp": 1470,
+      "parent_id": "v_set_29",
+      "tool_name": "fetch_pmcid",
+      "arguments": {
+        "pmcid": "PMC24230"
+      }
+    },
+    {
+      "id": "tr_crawl_30",
+      "type": "tool_result",
+      "timestamp": 1475,
+      "parent_id": "tc_crawl_30",
+      "call_id": "tc_crawl_30",
+      "result": "extracted PMID 30 off-target guide: GACT30"
+    },
+    {
+      "id": "v_set_30",
+      "type": "set_var",
+      "timestamp": 1478,
+      "parent_id": "tr_crawl_30",
+      "key": "active_paper",
+      "value": "PMC24230"
+    },
+    {
+      "id": "tc_dup_1",
+      "type": "tool_call",
+      "timestamp": 1510,
+      "parent_id": "v_set_30",
+      "tool_name": "ledger_status_check",
+      "arguments": {}
+    },
+    {
+      "id": "tr_dup_1",
+      "type": "tool_result",
+      "timestamp": 1515,
+      "parent_id": "tc_dup_1",
+      "call_id": "tc_dup_1",
+      "result": "online"
+    },
+    {
+      "id": "tc_dup_2",
+      "type": "tool_call",
+      "timestamp": 1520,
+      "parent_id": "tr_dup_1",
+      "tool_name": "ledger_status_check",
+      "arguments": {}
+    },
+    {
+      "id": "tr_dup_2",
+      "type": "tool_result",
+      "timestamp": 1525,
+      "parent_id": "tc_dup_2",
+      "call_id": "tc_dup_2",
+      "result": "online"
+    },
+    {
+      "id": "tc_dup_3",
+      "type": "tool_call",
+      "timestamp": 1530,
+      "parent_id": "tr_dup_2",
+      "tool_name": "ledger_status_check",
+      "arguments": {}
+    },
+    {
+      "id": "tr_dup_3",
+      "type": "tool_result",
+      "timestamp": 1535,
+      "parent_id": "tc_dup_3",
+      "call_id": "tc_dup_3",
+      "result": "online"
+    },
+    {
+      "id": "tc_dup_4",
+      "type": "tool_call",
+      "timestamp": 1540,
+      "parent_id": "tr_dup_3",
+      "tool_name": "ledger_status_check",
+      "arguments": {}
+    },
+    {
+      "id": "tr_dup_4",
+      "type": "tool_result",
+      "timestamp": 1545,
+      "parent_id": "tc_dup_4",
+      "call_id": "tc_dup_4",
+      "result": "online"
+    },
+    {
+      "id": "tc_dup_5",
+      "type": "tool_call",
+      "timestamp": 1550,
+      "parent_id": "tr_dup_4",
+      "tool_name": "ledger_status_check",
+      "arguments": {}
+    },
+    {
+      "id": "tr_dup_5",
+      "type": "tool_result",
+      "timestamp": 1555,
+      "parent_id": "tc_dup_5",
+      "call_id": "tc_dup_5",
+      "result": "online"
+    },
+    {
+      "id": "tc_dup_6",
+      "type": "tool_call",
+      "timestamp": 1560,
+      "parent_id": "tr_dup_5",
+      "tool_name": "ledger_status_check",
+      "arguments": {}
+    },
+    {
+      "id": "tr_dup_6",
+      "type": "tool_result",
+      "timestamp": 1565,
+      "parent_id": "tc_dup_6",
+      "call_id": "tc_dup_6",
+      "result": "online"
+    },
+    {
+      "id": "tc_dup_7",
+      "type": "tool_call",
+      "timestamp": 1570,
+      "parent_id": "tr_dup_6",
+      "tool_name": "ledger_status_check",
+      "arguments": {}
+    },
+    {
+      "id": "tr_dup_7",
+      "type": "tool_result",
+      "timestamp": 1575,
+      "parent_id": "tc_dup_7",
+      "call_id": "tc_dup_7",
+      "result": "online"
+    },
+    {
+      "id": "tc_dup_8",
+      "type": "tool_call",
+      "timestamp": 1580,
+      "parent_id": "tr_dup_7",
+      "tool_name": "ledger_status_check",
+      "arguments": {}
+    },
+    {
+      "id": "tr_dup_8",
+      "type": "tool_result",
+      "timestamp": 1585,
+      "parent_id": "tc_dup_8",
+      "call_id": "tc_dup_8",
+      "result": "online"
+    },
+    {
+      "id": "tc_dup_9",
+      "type": "tool_call",
+      "timestamp": 1590,
+      "parent_id": "tr_dup_8",
+      "tool_name": "ledger_status_check",
+      "arguments": {}
+    },
+    {
+      "id": "tr_dup_9",
+      "type": "tool_result",
+      "timestamp": 1595,
+      "parent_id": "tc_dup_9",
+      "call_id": "tc_dup_9",
+      "result": "online"
+    },
+    {
+      "id": "tc_dup_10",
+      "type": "tool_call",
+      "timestamp": 1600,
+      "parent_id": "tr_dup_9",
+      "tool_name": "ledger_status_check",
+      "arguments": {}
+    },
+    {
+      "id": "tr_dup_10",
+      "type": "tool_result",
+      "timestamp": 1605,
+      "parent_id": "tc_dup_10",
+      "call_id": "tc_dup_10",
+      "result": "online"
+    },
+    {
+      "id": "e100",
+      "type": "decision",
+      "timestamp": 1600,
+      "parent_id": "tr_dup_10",
+      "content": "CRISPR off-target audit trail compiled successfully."
+    }
+  ],
+  "probes": {
+    "recall": {
+      "contains": [
+        "human"
+      ],
+      "excludes": []
+    },
+    "artifact": {
+      "contains": [
+        "GACT30"
+      ],
+      "excludes": [
+        "yielded zero relevance papers under options 1"
+      ],
+      "recovered": {
+        "node_id": "tr_crawl_1",
+        "key": "result",
+        "value": "extracted PMID 1 off-target guide: GACT1"
+      }
+    },
+    "continuation": {
+      "contains": [
+        "europepmc",
+        "PMC24230"
+      ],
+      "excludes": [
+        "search_db = pubmed",
+        "active_paper = PMC2425"
+      ]
+    },
+    "decision": {
+      "contains": [
+        "Pubmed",
+        "EuropePMC",
+        "Pivoting"
+      ],
+      "excludes": [
+        "pubmed_search_opt_1",
+        "pubmed_search_opt_5"
+      ]
+    }
+  }
+}

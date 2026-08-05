@@ -1,0 +1,169 @@
+{
+  "events": [
+    {
+      "id": "e01",
+      "type": "decision",
+      "timestamp": 1000,
+      "parent_id": null,
+      "content": "Dispute: customer charging discrepancy"
+    },
+    {
+      "id": "e01_sub",
+      "type": "decision",
+      "timestamp": 1005,
+      "parent_id": "e01",
+      "content": "Locating account flags..."
+    },
+    {
+      "id": "e02",
+      "type": "set_var",
+      "timestamp": 1010,
+      "parent_id": "e01_sub",
+      "key": "user_id",
+      "value": "usr_992"
+    },
+    {
+      "id": "e02_sub",
+      "type": "set_var",
+      "timestamp": 1015,
+      "parent_id": "e02",
+      "key": "tier",
+      "value": "gold"
+    },
+    {
+      "id": "a01",
+      "type": "decision",
+      "timestamp": 1020,
+      "parent_id": "e02_sub",
+      "content": "Refund via automated gateway"
+    },
+    {
+      "id": "a02",
+      "type": "tool_call",
+      "timestamp": 1030,
+      "parent_id": "a01",
+      "tool_name": "auto_refund",
+      "arguments": {
+        "usr": "usr_992",
+        "amount": 500
+      }
+    },
+    {
+      "id": "a03",
+      "type": "tool_result",
+      "timestamp": 1040,
+      "parent_id": "a02",
+      "call_id": "a02",
+      "result": "error: manual approval required for amount > 100"
+    },
+    {
+      "id": "a04_retry",
+      "type": "tool_call",
+      "timestamp": 1045,
+      "parent_id": "a03",
+      "tool_name": "auto_refund",
+      "arguments": {
+        "usr": "usr_992",
+        "amount": 499
+      }
+    },
+    {
+      "id": "a04_res",
+      "type": "tool_result",
+      "timestamp": 1048,
+      "parent_id": "a04_retry",
+      "call_id": "a04_retry",
+      "result": "error: manual approval required retry 1"
+    },
+    {
+      "id": "ab01",
+      "type": "abandon",
+      "timestamp": 1050,
+      "parent_id": "a04_res",
+      "ref_to": [
+        "a01"
+      ]
+    },
+    {
+      "id": "e03",
+      "type": "decision",
+      "timestamp": 1060,
+      "parent_id": "e02_sub",
+      "content": "Auto refund failed (>100). Pivoting to manager escalation workflow"
+    },
+    {
+      "id": "e04",
+      "type": "set_var",
+      "timestamp": 1070,
+      "parent_id": "e03",
+      "key": "approval_type",
+      "value": "manager_manual"
+    },
+    {
+      "id": "e05",
+      "type": "tool_call",
+      "timestamp": 1080,
+      "parent_id": "e04",
+      "tool_name": "request_manual_approval",
+      "arguments": {
+        "id": "usr_992"
+      }
+    },
+    {
+      "id": "e06",
+      "type": "tool_result",
+      "timestamp": 1090,
+      "parent_id": "e05",
+      "call_id": "e05",
+      "result": "approved: tx_hash_ref_88"
+    },
+    {
+      "id": "e07",
+      "type": "decision",
+      "timestamp": 1100,
+      "parent_id": "e06",
+      "content": "Refund processed and customer notified."
+    }
+  ],
+  "probes": {
+    "recall": {
+      "contains": [
+        "usr_992"
+      ],
+      "excludes": []
+    },
+    "artifact": {
+      "contains": [
+        "tx_hash_ref_88"
+      ],
+      "excludes": [
+        "auto_refund",
+        "manual approval required"
+      ],
+      "recovered": {
+        "node_id": "e06",
+        "key": "result",
+        "value": "approved: tx_hash_ref_88"
+      }
+    },
+    "continuation": {
+      "contains": [
+        "manager_manual",
+        "tx_hash_ref_88"
+      ],
+      "excludes": [
+        "error: manual approval required"
+      ]
+    },
+    "decision": {
+      "contains": [
+        "Auto refund failed",
+        "manager escalation",
+        "Pivoting"
+      ],
+      "excludes": [
+        "amount: 500"
+      ]
+    }
+  }
+}
