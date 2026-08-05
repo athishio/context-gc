@@ -61,7 +61,7 @@ Clone this repository and run an editable installation from the root directory:
 pip install -e .
 ```
 
-### From PyPI (Once Published)
+### From PyPI
 Once published to PyPI, you can install the package directly:
 
 ```bash
