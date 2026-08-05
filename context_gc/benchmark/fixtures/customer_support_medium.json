@@ -1,0 +1,463 @@
+{
+  "events": [
+    {
+      "id": "e01",
+      "type": "decision",
+      "timestamp": 1000,
+      "parent_id": null,
+      "content": "Dispute: credit card chargeback dispute"
+    },
+    {
+      "id": "e02",
+      "type": "set_var",
+      "timestamp": 1010,
+      "parent_id": "e01",
+      "key": "dispute_id",
+      "value": "dis_771"
+    },
+    {
+      "id": "e03",
+      "type": "set_var",
+      "timestamp": 1020,
+      "parent_id": "e02",
+      "key": "escalation_level",
+      "value": "tier1"
+    },
+    {
+      "id": "a1",
+      "type": "decision",
+      "timestamp": 1030,
+      "parent_id": "e03",
+      "content": "Verify via stripe charge retrieval"
+    },
+    {
+      "id": "a2",
+      "type": "tool_call",
+      "timestamp": 1040,
+      "parent_id": "a1",
+      "tool_name": "stripe_retrieve",
+      "arguments": {
+        "charge_id": "ch_stripe"
+      }
+    },
+    {
+      "id": "a3",
+      "type": "tool_result",
+      "timestamp": 1050,
+      "parent_id": "a2",
+      "call_id": "a2",
+      "result": "stripe_charge_not_found"
+    },
+    {
+      "id": "ab1",
+      "type": "abandon",
+      "timestamp": 1060,
+      "parent_id": "a3",
+      "ref_to": [
+        "a1"
+      ]
+    },
+    {
+      "id": "e04",
+      "type": "decision",
+      "timestamp": 1070,
+      "parent_id": "e03",
+      "content": "Stripe retrieval failed. Pivoting to PayPal transaction dispute lookup"
+    },
+    {
+      "id": "e05",
+      "type": "set_var",
+      "timestamp": 1080,
+      "parent_id": "e04",
+      "key": "escalation_level",
+      "value": "tier2"
+    },
+    {
+      "id": "c1",
+      "type": "decision",
+      "timestamp": 1100,
+      "parent_id": "e05",
+      "content": "Request documentation: verify ID"
+    },
+    {
+      "id": "c2",
+      "type": "tool_call",
+      "timestamp": 1110,
+      "parent_id": "c1",
+      "tool_name": "send_email",
+      "arguments": {
+        "template": "request_docs"
+      }
+    },
+    {
+      "id": "c3",
+      "type": "tool_result",
+      "timestamp": 1120,
+      "parent_id": "c2",
+      "call_id": "c2",
+      "result": "email sent, customer requested details"
+    },
+    {
+      "id": "e06",
+      "type": "set_var",
+      "timestamp": 1130,
+      "parent_id": "c3",
+      "key": "paypal_tx",
+      "value": "tx_paypal_881a"
+    },
+    {
+      "id": "tc_audit_1",
+      "type": "tool_call",
+      "timestamp": 1150,
+      "parent_id": "e06",
+      "tool_name": "audit_ledger_status_1",
+      "arguments": {}
+    },
+    {
+      "id": "tr_audit_1",
+      "type": "tool_result",
+      "timestamp": 1155,
+      "parent_id": "tc_audit_1",
+      "call_id": "tc_audit_1",
+      "result": "ledger_clean"
+    },
+    {
+      "id": "tc_audit_2",
+      "type": "tool_call",
+      "timestamp": 1160,
+      "parent_id": "tr_audit_1",
+      "tool_name": "audit_ledger_status_2",
+      "arguments": {}
+    },
+    {
+      "id": "tr_audit_2",
+      "type": "tool_result",
+      "timestamp": 1165,
+      "parent_id": "tc_audit_2",
+      "call_id": "tc_audit_2",
+      "result": "ledger_clean"
+    },
+    {
+      "id": "tc_audit_3",
+      "type": "tool_call",
+      "timestamp": 1170,
+      "parent_id": "tr_audit_2",
+      "tool_name": "audit_ledger_status_3",
+      "arguments": {}
+    },
+    {
+      "id": "tr_audit_3",
+      "type": "tool_result",
+      "timestamp": 1175,
+      "parent_id": "tc_audit_3",
+      "call_id": "tc_audit_3",
+      "result": "ledger_clean"
+    },
+    {
+      "id": "tc_audit_4",
+      "type": "tool_call",
+      "timestamp": 1180,
+      "parent_id": "tr_audit_3",
+      "tool_name": "audit_ledger_status_4",
+      "arguments": {}
+    },
+    {
+      "id": "tr_audit_4",
+      "type": "tool_result",
+      "timestamp": 1185,
+      "parent_id": "tc_audit_4",
+      "call_id": "tc_audit_4",
+      "result": "ledger_clean"
+    },
+    {
+      "id": "tc_audit_5",
+      "type": "tool_call",
+      "timestamp": 1190,
+      "parent_id": "tr_audit_4",
+      "tool_name": "audit_ledger_status_5",
+      "arguments": {}
+    },
+    {
+      "id": "tr_audit_5",
+      "type": "tool_result",
+      "timestamp": 1195,
+      "parent_id": "tc_audit_5",
+      "call_id": "tc_audit_5",
+      "result": "ledger_clean"
+    },
+    {
+      "id": "tc_audit_6",
+      "type": "tool_call",
+      "timestamp": 1200,
+      "parent_id": "tr_audit_5",
+      "tool_name": "audit_ledger_status_6",
+      "arguments": {}
+    },
+    {
+      "id": "tr_audit_6",
+      "type": "tool_result",
+      "timestamp": 1205,
+      "parent_id": "tc_audit_6",
+      "call_id": "tc_audit_6",
+      "result": "ledger_clean"
+    },
+    {
+      "id": "tc_audit_7",
+      "type": "tool_call",
+      "timestamp": 1210,
+      "parent_id": "tr_audit_6",
+      "tool_name": "audit_ledger_status_7",
+      "arguments": {}
+    },
+    {
+      "id": "tr_audit_7",
+      "type": "tool_result",
+      "timestamp": 1215,
+      "parent_id": "tc_audit_7",
+      "call_id": "tc_audit_7",
+      "result": "ledger_clean"
+    },
+    {
+      "id": "tc_audit_8",
+      "type": "tool_call",
+      "timestamp": 1220,
+      "parent_id": "tr_audit_7",
+      "tool_name": "audit_ledger_status_8",
+      "arguments": {}
+    },
+    {
+      "id": "tr_audit_8",
+      "type": "tool_result",
+      "timestamp": 1225,
+      "parent_id": "tc_audit_8",
+      "call_id": "tc_audit_8",
+      "result": "ledger_clean"
+    },
+    {
+      "id": "tc_audit_9",
+      "type": "tool_call",
+      "timestamp": 1230,
+      "parent_id": "tr_audit_8",
+      "tool_name": "audit_ledger_status_9",
+      "arguments": {}
+    },
+    {
+      "id": "tr_audit_9",
+      "type": "tool_result",
+      "timestamp": 1235,
+      "parent_id": "tc_audit_9",
+      "call_id": "tc_audit_9",
+      "result": "ledger_clean"
+    },
+    {
+      "id": "tc_audit_10",
+      "type": "tool_call",
+      "timestamp": 1240,
+      "parent_id": "tr_audit_9",
+      "tool_name": "audit_ledger_status_10",
+      "arguments": {}
+    },
+    {
+      "id": "tr_audit_10",
+      "type": "tool_result",
+      "timestamp": 1245,
+      "parent_id": "tc_audit_10",
+      "call_id": "tc_audit_10",
+      "result": "ledger_clean"
+    },
+    {
+      "id": "tc_audit_11",
+      "type": "tool_call",
+      "timestamp": 1250,
+      "parent_id": "tr_audit_10",
+      "tool_name": "audit_ledger_status_11",
+      "arguments": {}
+    },
+    {
+      "id": "tr_audit_11",
+      "type": "tool_result",
+      "timestamp": 1255,
+      "parent_id": "tc_audit_11",
+      "call_id": "tc_audit_11",
+      "result": "ledger_clean"
+    },
+    {
+      "id": "tc_audit_12",
+      "type": "tool_call",
+      "timestamp": 1260,
+      "parent_id": "tr_audit_11",
+      "tool_name": "audit_ledger_status_12",
+      "arguments": {}
+    },
+    {
+      "id": "tr_audit_12",
+      "type": "tool_result",
+      "timestamp": 1265,
+      "parent_id": "tc_audit_12",
+      "call_id": "tc_audit_12",
+      "result": "ledger_clean"
+    },
+    {
+      "id": "e07",
+      "type": "tool_call",
+      "timestamp": 1300,
+      "parent_id": "tr_audit_12",
+      "tool_name": "paypal_lookup",
+      "arguments": {
+        "tx": "tx_paypal_881a"
+      }
+    },
+    {
+      "id": "e08",
+      "type": "tool_result",
+      "timestamp": 1310,
+      "parent_id": "e07",
+      "call_id": "e07",
+      "result": "found_dispute_settlement_approved"
+    },
+    {
+      "id": "e09_1",
+      "type": "tool_call",
+      "timestamp": 1330,
+      "parent_id": "e08",
+      "tool_name": "paypal_lookup",
+      "arguments": {
+        "tx": "tx_paypal_881a"
+      }
+    },
+    {
+      "id": "e10_1",
+      "type": "tool_result",
+      "timestamp": 1335,
+      "parent_id": "e09_1",
+      "call_id": "e09_1",
+      "result": "found_dispute_settlement_approved"
+    },
+    {
+      "id": "e09_2",
+      "type": "tool_call",
+      "timestamp": 1340,
+      "parent_id": "e10_1",
+      "tool_name": "paypal_lookup",
+      "arguments": {
+        "tx": "tx_paypal_881a"
+      }
+    },
+    {
+      "id": "e10_2",
+      "type": "tool_result",
+      "timestamp": 1345,
+      "parent_id": "e09_2",
+      "call_id": "e09_2",
+      "result": "found_dispute_settlement_approved"
+    },
+    {
+      "id": "e09_3",
+      "type": "tool_call",
+      "timestamp": 1350,
+      "parent_id": "e10_2",
+      "tool_name": "paypal_lookup",
+      "arguments": {
+        "tx": "tx_paypal_881a"
+      }
+    },
+    {
+      "id": "e10_3",
+      "type": "tool_result",
+      "timestamp": 1355,
+      "parent_id": "e09_3",
+      "call_id": "e09_3",
+      "result": "found_dispute_settlement_approved"
+    },
+    {
+      "id": "e09_4",
+      "type": "tool_call",
+      "timestamp": 1360,
+      "parent_id": "e10_3",
+      "tool_name": "paypal_lookup",
+      "arguments": {
+        "tx": "tx_paypal_881a"
+      }
+    },
+    {
+      "id": "e10_4",
+      "type": "tool_result",
+      "timestamp": 1365,
+      "parent_id": "e09_4",
+      "call_id": "e09_4",
+      "result": "found_dispute_settlement_approved"
+    },
+    {
+      "id": "e09_5",
+      "type": "tool_call",
+      "timestamp": 1370,
+      "parent_id": "e10_4",
+      "tool_name": "paypal_lookup",
+      "arguments": {
+        "tx": "tx_paypal_881a"
+      }
+    },
+    {
+      "id": "e10_5",
+      "type": "tool_result",
+      "timestamp": 1375,
+      "parent_id": "e09_5",
+      "call_id": "e09_5",
+      "result": "found_dispute_settlement_approved"
+    },
+    {
+      "id": "e11",
+      "type": "decision",
+      "timestamp": 1400,
+      "parent_id": "e10_5",
+      "content": "PayPal chargeback resolved successfully"
+    },
+    {
+      "id": "cycle_link",
+      "type": "edge_injection",
+      "src": "c3",
+      "dst": "c1"
+    }
+  ],
+  "probes": {
+    "recall": {
+      "contains": [
+        "dis_771"
+      ],
+      "excludes": []
+    },
+    "artifact": {
+      "contains": [
+        "found_dispute_settlement_approved"
+      ],
+      "excludes": [
+        "stripe_charge_not_found"
+      ],
+      "recovered": {
+        "node_id": "e08",
+        "key": "result",
+        "value": "found_dispute_settlement_approved"
+      }
+    },
+    "continuation": {
+      "contains": [
+        "tier2",
+        "tx_paypal_881a"
+      ],
+      "excludes": [
+        "escalation_level = tier1"
+      ]
+    },
+    "decision": {
+      "contains": [
+        "Stripe",
+        "PayPal",
+        "Pivoting"
+      ],
+      "excludes": [
+        "charge_id: ch_stripe",
+        "stripe_retrieve"
+      ]
+    }
+  }
+}

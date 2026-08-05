@@ -1,0 +1,471 @@
+{
+  "events": [
+    {
+      "id": "e01",
+      "type": "decision",
+      "timestamp": 1000,
+      "parent_id": null,
+      "content": "Task: write schema"
+    },
+    {
+      "id": "e02",
+      "type": "set_var",
+      "timestamp": 1010,
+      "parent_id": "e01",
+      "key": "db_engine",
+      "value": "mysql"
+    },
+    {
+      "id": "e03",
+      "type": "set_var",
+      "timestamp": 1020,
+      "parent_id": "e02",
+      "key": "db_port",
+      "value": 3306
+    },
+    {
+      "id": "a1",
+      "type": "decision",
+      "timestamp": 1030,
+      "parent_id": "e03",
+      "content": "Setup postgres"
+    },
+    {
+      "id": "a2",
+      "type": "set_var",
+      "timestamp": 1040,
+      "parent_id": "a1",
+      "key": "db_engine",
+      "value": "postgres"
+    },
+    {
+      "id": "a3",
+      "type": "tool_call",
+      "timestamp": 1050,
+      "parent_id": "a2",
+      "tool_name": "run_pg_ctl",
+      "arguments": {
+        "port": 5432
+      }
+    },
+    {
+      "id": "a4",
+      "type": "tool_result",
+      "timestamp": 1060,
+      "parent_id": "a3",
+      "call_id": "a3",
+      "result": "pg_err_auth"
+    },
+    {
+      "id": "ab1",
+      "type": "abandon",
+      "timestamp": 1070,
+      "parent_id": "a4",
+      "ref_to": [
+        "a1"
+      ]
+    },
+    {
+      "id": "e04",
+      "type": "decision",
+      "timestamp": 1080,
+      "parent_id": "e03",
+      "content": "Postgres failed. Pivoting to sqlite for zero setup overhead"
+    },
+    {
+      "id": "e05",
+      "type": "set_var",
+      "timestamp": 1090,
+      "parent_id": "e04",
+      "key": "db_engine",
+      "value": "sqlite"
+    },
+    {
+      "id": "c1",
+      "type": "decision",
+      "timestamp": 1100,
+      "parent_id": "e05",
+      "content": "Tuning connections: test 50"
+    },
+    {
+      "id": "c2",
+      "type": "tool_call",
+      "timestamp": 1110,
+      "parent_id": "c1",
+      "tool_name": "stress_test",
+      "arguments": {
+        "conns": 50
+      }
+    },
+    {
+      "id": "c3",
+      "type": "tool_result",
+      "timestamp": 1120,
+      "parent_id": "c2",
+      "call_id": "c2",
+      "result": "high latency, retry 10"
+    },
+    {
+      "id": "e06",
+      "type": "set_var",
+      "timestamp": 1130,
+      "parent_id": "c3",
+      "key": "pool_size",
+      "value": 10
+    },
+    {
+      "id": "tc_mig_1",
+      "type": "tool_call",
+      "timestamp": 1150,
+      "parent_id": "e06",
+      "tool_name": "apply_migration_1",
+      "arguments": {}
+    },
+    {
+      "id": "tr_mig_1",
+      "type": "tool_result",
+      "timestamp": 1155,
+      "parent_id": "tc_mig_1",
+      "call_id": "tc_mig_1",
+      "result": "migration_success"
+    },
+    {
+      "id": "tc_mig_2",
+      "type": "tool_call",
+      "timestamp": 1160,
+      "parent_id": "tr_mig_1",
+      "tool_name": "apply_migration_2",
+      "arguments": {}
+    },
+    {
+      "id": "tr_mig_2",
+      "type": "tool_result",
+      "timestamp": 1165,
+      "parent_id": "tc_mig_2",
+      "call_id": "tc_mig_2",
+      "result": "migration_success"
+    },
+    {
+      "id": "tc_mig_3",
+      "type": "tool_call",
+      "timestamp": 1170,
+      "parent_id": "tr_mig_2",
+      "tool_name": "apply_migration_3",
+      "arguments": {}
+    },
+    {
+      "id": "tr_mig_3",
+      "type": "tool_result",
+      "timestamp": 1175,
+      "parent_id": "tc_mig_3",
+      "call_id": "tc_mig_3",
+      "result": "migration_success"
+    },
+    {
+      "id": "tc_mig_4",
+      "type": "tool_call",
+      "timestamp": 1180,
+      "parent_id": "tr_mig_3",
+      "tool_name": "apply_migration_4",
+      "arguments": {}
+    },
+    {
+      "id": "tr_mig_4",
+      "type": "tool_result",
+      "timestamp": 1185,
+      "parent_id": "tc_mig_4",
+      "call_id": "tc_mig_4",
+      "result": "migration_success"
+    },
+    {
+      "id": "tc_mig_5",
+      "type": "tool_call",
+      "timestamp": 1190,
+      "parent_id": "tr_mig_4",
+      "tool_name": "apply_migration_5",
+      "arguments": {}
+    },
+    {
+      "id": "tr_mig_5",
+      "type": "tool_result",
+      "timestamp": 1195,
+      "parent_id": "tc_mig_5",
+      "call_id": "tc_mig_5",
+      "result": "migration_success"
+    },
+    {
+      "id": "tc_mig_6",
+      "type": "tool_call",
+      "timestamp": 1200,
+      "parent_id": "tr_mig_5",
+      "tool_name": "apply_migration_6",
+      "arguments": {}
+    },
+    {
+      "id": "tr_mig_6",
+      "type": "tool_result",
+      "timestamp": 1205,
+      "parent_id": "tc_mig_6",
+      "call_id": "tc_mig_6",
+      "result": "migration_success"
+    },
+    {
+      "id": "tc_mig_7",
+      "type": "tool_call",
+      "timestamp": 1210,
+      "parent_id": "tr_mig_6",
+      "tool_name": "apply_migration_7",
+      "arguments": {}
+    },
+    {
+      "id": "tr_mig_7",
+      "type": "tool_result",
+      "timestamp": 1215,
+      "parent_id": "tc_mig_7",
+      "call_id": "tc_mig_7",
+      "result": "migration_success"
+    },
+    {
+      "id": "tc_mig_8",
+      "type": "tool_call",
+      "timestamp": 1220,
+      "parent_id": "tr_mig_7",
+      "tool_name": "apply_migration_8",
+      "arguments": {}
+    },
+    {
+      "id": "tr_mig_8",
+      "type": "tool_result",
+      "timestamp": 1225,
+      "parent_id": "tc_mig_8",
+      "call_id": "tc_mig_8",
+      "result": "migration_success"
+    },
+    {
+      "id": "tc_mig_9",
+      "type": "tool_call",
+      "timestamp": 1230,
+      "parent_id": "tr_mig_8",
+      "tool_name": "apply_migration_9",
+      "arguments": {}
+    },
+    {
+      "id": "tr_mig_9",
+      "type": "tool_result",
+      "timestamp": 1235,
+      "parent_id": "tc_mig_9",
+      "call_id": "tc_mig_9",
+      "result": "migration_success"
+    },
+    {
+      "id": "tc_mig_10",
+      "type": "tool_call",
+      "timestamp": 1240,
+      "parent_id": "tr_mig_9",
+      "tool_name": "apply_migration_10",
+      "arguments": {}
+    },
+    {
+      "id": "tr_mig_10",
+      "type": "tool_result",
+      "timestamp": 1245,
+      "parent_id": "tc_mig_10",
+      "call_id": "tc_mig_10",
+      "result": "migration_success"
+    },
+    {
+      "id": "tc_mig_11",
+      "type": "tool_call",
+      "timestamp": 1250,
+      "parent_id": "tr_mig_10",
+      "tool_name": "apply_migration_11",
+      "arguments": {}
+    },
+    {
+      "id": "tr_mig_11",
+      "type": "tool_result",
+      "timestamp": 1255,
+      "parent_id": "tc_mig_11",
+      "call_id": "tc_mig_11",
+      "result": "migration_success"
+    },
+    {
+      "id": "tc_mig_12",
+      "type": "tool_call",
+      "timestamp": 1260,
+      "parent_id": "tr_mig_11",
+      "tool_name": "apply_migration_12",
+      "arguments": {}
+    },
+    {
+      "id": "tr_mig_12",
+      "type": "tool_result",
+      "timestamp": 1265,
+      "parent_id": "tc_mig_12",
+      "call_id": "tc_mig_12",
+      "result": "migration_success"
+    },
+    {
+      "id": "e07",
+      "type": "tool_call",
+      "timestamp": 1300,
+      "parent_id": "tr_mig_12",
+      "tool_name": "db_check",
+      "arguments": {
+        "pool": 10
+      }
+    },
+    {
+      "id": "e08",
+      "type": "tool_result",
+      "timestamp": 1310,
+      "parent_id": "e07",
+      "call_id": "e07",
+      "result": "db_session_id_999"
+    },
+    {
+      "id": "e09_1",
+      "type": "tool_call",
+      "timestamp": 1330,
+      "parent_id": "e08",
+      "tool_name": "db_check",
+      "arguments": {
+        "pool": 10
+      }
+    },
+    {
+      "id": "e10_1",
+      "type": "tool_result",
+      "timestamp": 1335,
+      "parent_id": "e09_1",
+      "call_id": "e09_1",
+      "result": "db_session_id_999"
+    },
+    {
+      "id": "e09_2",
+      "type": "tool_call",
+      "timestamp": 1340,
+      "parent_id": "e10_1",
+      "tool_name": "db_check",
+      "arguments": {
+        "pool": 10
+      }
+    },
+    {
+      "id": "e10_2",
+      "type": "tool_result",
+      "timestamp": 1345,
+      "parent_id": "e09_2",
+      "call_id": "e09_2",
+      "result": "db_session_id_999"
+    },
+    {
+      "id": "e09_3",
+      "type": "tool_call",
+      "timestamp": 1350,
+      "parent_id": "e10_2",
+      "tool_name": "db_check",
+      "arguments": {
+        "pool": 10
+      }
+    },
+    {
+      "id": "e10_3",
+      "type": "tool_result",
+      "timestamp": 1355,
+      "parent_id": "e09_3",
+      "call_id": "e09_3",
+      "result": "db_session_id_999"
+    },
+    {
+      "id": "e09_4",
+      "type": "tool_call",
+      "timestamp": 1360,
+      "parent_id": "e10_3",
+      "tool_name": "db_check",
+      "arguments": {
+        "pool": 10
+      }
+    },
+    {
+      "id": "e10_4",
+      "type": "tool_result",
+      "timestamp": 1365,
+      "parent_id": "e09_4",
+      "call_id": "e09_4",
+      "result": "db_session_id_999"
+    },
+    {
+      "id": "e09_5",
+      "type": "tool_call",
+      "timestamp": 1370,
+      "parent_id": "e10_4",
+      "tool_name": "db_check",
+      "arguments": {
+        "pool": 10
+      }
+    },
+    {
+      "id": "e10_5",
+      "type": "tool_result",
+      "timestamp": 1375,
+      "parent_id": "e09_5",
+      "call_id": "e09_5",
+      "result": "db_session_id_999"
+    },
+    {
+      "id": "e11",
+      "type": "decision",
+      "timestamp": 1400,
+      "parent_id": "e10_5",
+      "content": "Database Schema initialized."
+    },
+    {
+      "id": "cycle_link",
+      "type": "edge_injection",
+      "src": "c3",
+      "dst": "c1"
+    }
+  ],
+  "probes": {
+    "recall": {
+      "contains": [
+        "3306"
+      ],
+      "excludes": []
+    },
+    "artifact": {
+      "contains": [
+        "db_session_id_999"
+      ],
+      "excludes": [
+        "pg_err_auth"
+      ],
+      "recovered": {
+        "node_id": "e08",
+        "key": "result",
+        "value": "db_session_id_999"
+      }
+    },
+    "continuation": {
+      "contains": [
+        "sqlite",
+        "10"
+      ],
+      "excludes": [
+        "db_engine = postgres"
+      ]
+    },
+    "decision": {
+      "contains": [
+        "sqlite",
+        "Postgres",
+        "Pivoting"
+      ],
+      "excludes": [
+        "pg_err_auth",
+        "run_pg_ctl"
+      ]
+    }
+  }
+}

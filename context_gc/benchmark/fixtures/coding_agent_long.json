@@ -1,0 +1,1306 @@
+{
+  "events": [
+    {
+      "id": "e01",
+      "type": "decision",
+      "timestamp": 1000,
+      "parent_id": null,
+      "content": "Task: write full API service"
+    },
+    {
+      "id": "e02",
+      "type": "set_var",
+      "timestamp": 1010,
+      "parent_id": "e01",
+      "key": "port",
+      "value": 8080
+    },
+    {
+      "id": "e03",
+      "type": "set_var",
+      "timestamp": 1020,
+      "parent_id": "e02",
+      "key": "env",
+      "value": "development"
+    },
+    {
+      "id": "ab_branch_1",
+      "type": "decision",
+      "timestamp": 1040,
+      "parent_id": "e03",
+      "content": "Attempting dep config option 1"
+    },
+    {
+      "id": "tc_a_1",
+      "type": "tool_call",
+      "timestamp": 1041,
+      "parent_id": "ab_branch_1",
+      "tool_name": "dep_check_1",
+      "arguments": {}
+    },
+    {
+      "id": "tr_a_1",
+      "type": "tool_result",
+      "timestamp": 1042,
+      "parent_id": "tc_a_1",
+      "call_id": "tc_a_1",
+      "result": "failed dependency 1 setup"
+    },
+    {
+      "id": "ab_end_1",
+      "type": "abandon",
+      "timestamp": 1043,
+      "parent_id": "tr_a_1",
+      "ref_to": [
+        "ab_branch_1"
+      ]
+    },
+    {
+      "id": "ab_branch_2",
+      "type": "decision",
+      "timestamp": 1050,
+      "parent_id": "e03",
+      "content": "Attempting dep config option 2"
+    },
+    {
+      "id": "tc_a_2",
+      "type": "tool_call",
+      "timestamp": 1051,
+      "parent_id": "ab_branch_2",
+      "tool_name": "dep_check_2",
+      "arguments": {}
+    },
+    {
+      "id": "tr_a_2",
+      "type": "tool_result",
+      "timestamp": 1052,
+      "parent_id": "tc_a_2",
+      "call_id": "tc_a_2",
+      "result": "failed dependency 2 setup"
+    },
+    {
+      "id": "ab_end_2",
+      "type": "abandon",
+      "timestamp": 1053,
+      "parent_id": "tr_a_2",
+      "ref_to": [
+        "ab_branch_2"
+      ]
+    },
+    {
+      "id": "ab_branch_3",
+      "type": "decision",
+      "timestamp": 1060,
+      "parent_id": "e03",
+      "content": "Attempting dep config option 3"
+    },
+    {
+      "id": "tc_a_3",
+      "type": "tool_call",
+      "timestamp": 1061,
+      "parent_id": "ab_branch_3",
+      "tool_name": "dep_check_3",
+      "arguments": {}
+    },
+    {
+      "id": "tr_a_3",
+      "type": "tool_result",
+      "timestamp": 1062,
+      "parent_id": "tc_a_3",
+      "call_id": "tc_a_3",
+      "result": "failed dependency 3 setup"
+    },
+    {
+      "id": "ab_end_3",
+      "type": "abandon",
+      "timestamp": 1063,
+      "parent_id": "tr_a_3",
+      "ref_to": [
+        "ab_branch_3"
+      ]
+    },
+    {
+      "id": "ab_branch_4",
+      "type": "decision",
+      "timestamp": 1070,
+      "parent_id": "e03",
+      "content": "Attempting dep config option 4"
+    },
+    {
+      "id": "tc_a_4",
+      "type": "tool_call",
+      "timestamp": 1071,
+      "parent_id": "ab_branch_4",
+      "tool_name": "dep_check_4",
+      "arguments": {}
+    },
+    {
+      "id": "tr_a_4",
+      "type": "tool_result",
+      "timestamp": 1072,
+      "parent_id": "tc_a_4",
+      "call_id": "tc_a_4",
+      "result": "failed dependency 4 setup"
+    },
+    {
+      "id": "ab_end_4",
+      "type": "abandon",
+      "timestamp": 1073,
+      "parent_id": "tr_a_4",
+      "ref_to": [
+        "ab_branch_4"
+      ]
+    },
+    {
+      "id": "ab_branch_5",
+      "type": "decision",
+      "timestamp": 1080,
+      "parent_id": "e03",
+      "content": "Attempting dep config option 5"
+    },
+    {
+      "id": "tc_a_5",
+      "type": "tool_call",
+      "timestamp": 1081,
+      "parent_id": "ab_branch_5",
+      "tool_name": "dep_check_5",
+      "arguments": {}
+    },
+    {
+      "id": "tr_a_5",
+      "type": "tool_result",
+      "timestamp": 1082,
+      "parent_id": "tc_a_5",
+      "call_id": "tc_a_5",
+      "result": "failed dependency 5 setup"
+    },
+    {
+      "id": "ab_end_5",
+      "type": "abandon",
+      "timestamp": 1083,
+      "parent_id": "tr_a_5",
+      "ref_to": [
+        "ab_branch_5"
+      ]
+    },
+    {
+      "id": "ab_branch_6",
+      "type": "decision",
+      "timestamp": 1090,
+      "parent_id": "e03",
+      "content": "Attempting dep config option 6"
+    },
+    {
+      "id": "tc_a_6",
+      "type": "tool_call",
+      "timestamp": 1091,
+      "parent_id": "ab_branch_6",
+      "tool_name": "dep_check_6",
+      "arguments": {}
+    },
+    {
+      "id": "tr_a_6",
+      "type": "tool_result",
+      "timestamp": 1092,
+      "parent_id": "tc_a_6",
+      "call_id": "tc_a_6",
+      "result": "failed dependency 6 setup"
+    },
+    {
+      "id": "ab_end_6",
+      "type": "abandon",
+      "timestamp": 1093,
+      "parent_id": "tr_a_6",
+      "ref_to": [
+        "ab_branch_6"
+      ]
+    },
+    {
+      "id": "ab_branch_7",
+      "type": "decision",
+      "timestamp": 1100,
+      "parent_id": "e03",
+      "content": "Attempting dep config option 7"
+    },
+    {
+      "id": "tc_a_7",
+      "type": "tool_call",
+      "timestamp": 1101,
+      "parent_id": "ab_branch_7",
+      "tool_name": "dep_check_7",
+      "arguments": {}
+    },
+    {
+      "id": "tr_a_7",
+      "type": "tool_result",
+      "timestamp": 1102,
+      "parent_id": "tc_a_7",
+      "call_id": "tc_a_7",
+      "result": "failed dependency 7 setup"
+    },
+    {
+      "id": "ab_end_7",
+      "type": "abandon",
+      "timestamp": 1103,
+      "parent_id": "tr_a_7",
+      "ref_to": [
+        "ab_branch_7"
+      ]
+    },
+    {
+      "id": "ab_branch_8",
+      "type": "decision",
+      "timestamp": 1110,
+      "parent_id": "e03",
+      "content": "Attempting dep config option 8"
+    },
+    {
+      "id": "tc_a_8",
+      "type": "tool_call",
+      "timestamp": 1111,
+      "parent_id": "ab_branch_8",
+      "tool_name": "dep_check_8",
+      "arguments": {}
+    },
+    {
+      "id": "tr_a_8",
+      "type": "tool_result",
+      "timestamp": 1112,
+      "parent_id": "tc_a_8",
+      "call_id": "tc_a_8",
+      "result": "failed dependency 8 setup"
+    },
+    {
+      "id": "ab_end_8",
+      "type": "abandon",
+      "timestamp": 1113,
+      "parent_id": "tr_a_8",
+      "ref_to": [
+        "ab_branch_8"
+      ]
+    },
+    {
+      "id": "e04",
+      "type": "decision",
+      "timestamp": 1150,
+      "parent_id": "e03",
+      "content": "Pivoting to standalone docker configuration since standard dependencies failed"
+    },
+    {
+      "id": "e05",
+      "type": "set_var",
+      "timestamp": 1160,
+      "parent_id": "e04",
+      "key": "deployment_mode",
+      "value": "docker"
+    },
+    {
+      "id": "tc_code_1",
+      "type": "tool_call",
+      "timestamp": 1180,
+      "parent_id": "e05",
+      "tool_name": "write_file_1",
+      "arguments": {
+        "file": "file_1.py"
+      }
+    },
+    {
+      "id": "tr_code_1",
+      "type": "tool_result",
+      "timestamp": 1185,
+      "parent_id": "tc_code_1",
+      "call_id": "tc_code_1",
+      "result": "written file_1_checksum_abc1"
+    },
+    {
+      "id": "v_set_1",
+      "type": "set_var",
+      "timestamp": 1188,
+      "parent_id": "tr_code_1",
+      "key": "build_version",
+      "value": "v1.1"
+    },
+    {
+      "id": "tc_code_2",
+      "type": "tool_call",
+      "timestamp": 1190,
+      "parent_id": "v_set_1",
+      "tool_name": "write_file_2",
+      "arguments": {
+        "file": "file_2.py"
+      }
+    },
+    {
+      "id": "tr_code_2",
+      "type": "tool_result",
+      "timestamp": 1195,
+      "parent_id": "tc_code_2",
+      "call_id": "tc_code_2",
+      "result": "written file_2_checksum_abc2"
+    },
+    {
+      "id": "v_set_2",
+      "type": "set_var",
+      "timestamp": 1198,
+      "parent_id": "tr_code_2",
+      "key": "build_version",
+      "value": "v1.2"
+    },
+    {
+      "id": "tc_code_3",
+      "type": "tool_call",
+      "timestamp": 1200,
+      "parent_id": "v_set_2",
+      "tool_name": "write_file_3",
+      "arguments": {
+        "file": "file_3.py"
+      }
+    },
+    {
+      "id": "tr_code_3",
+      "type": "tool_result",
+      "timestamp": 1205,
+      "parent_id": "tc_code_3",
+      "call_id": "tc_code_3",
+      "result": "written file_3_checksum_abc3"
+    },
+    {
+      "id": "v_set_3",
+      "type": "set_var",
+      "timestamp": 1208,
+      "parent_id": "tr_code_3",
+      "key": "build_version",
+      "value": "v1.3"
+    },
+    {
+      "id": "tc_code_4",
+      "type": "tool_call",
+      "timestamp": 1210,
+      "parent_id": "v_set_3",
+      "tool_name": "write_file_4",
+      "arguments": {
+        "file": "file_4.py"
+      }
+    },
+    {
+      "id": "tr_code_4",
+      "type": "tool_result",
+      "timestamp": 1215,
+      "parent_id": "tc_code_4",
+      "call_id": "tc_code_4",
+      "result": "written file_4_checksum_abc4"
+    },
+    {
+      "id": "v_set_4",
+      "type": "set_var",
+      "timestamp": 1218,
+      "parent_id": "tr_code_4",
+      "key": "build_version",
+      "value": "v1.4"
+    },
+    {
+      "id": "tc_code_5",
+      "type": "tool_call",
+      "timestamp": 1220,
+      "parent_id": "v_set_4",
+      "tool_name": "write_file_5",
+      "arguments": {
+        "file": "file_5.py"
+      }
+    },
+    {
+      "id": "tr_code_5",
+      "type": "tool_result",
+      "timestamp": 1225,
+      "parent_id": "tc_code_5",
+      "call_id": "tc_code_5",
+      "result": "written file_5_checksum_abc5"
+    },
+    {
+      "id": "v_set_5",
+      "type": "set_var",
+      "timestamp": 1228,
+      "parent_id": "tr_code_5",
+      "key": "build_version",
+      "value": "v1.5"
+    },
+    {
+      "id": "tc_code_6",
+      "type": "tool_call",
+      "timestamp": 1230,
+      "parent_id": "v_set_5",
+      "tool_name": "write_file_6",
+      "arguments": {
+        "file": "file_6.py"
+      }
+    },
+    {
+      "id": "tr_code_6",
+      "type": "tool_result",
+      "timestamp": 1235,
+      "parent_id": "tc_code_6",
+      "call_id": "tc_code_6",
+      "result": "written file_6_checksum_abc6"
+    },
+    {
+      "id": "v_set_6",
+      "type": "set_var",
+      "timestamp": 1238,
+      "parent_id": "tr_code_6",
+      "key": "build_version",
+      "value": "v1.6"
+    },
+    {
+      "id": "tc_code_7",
+      "type": "tool_call",
+      "timestamp": 1240,
+      "parent_id": "v_set_6",
+      "tool_name": "write_file_7",
+      "arguments": {
+        "file": "file_7.py"
+      }
+    },
+    {
+      "id": "tr_code_7",
+      "type": "tool_result",
+      "timestamp": 1245,
+      "parent_id": "tc_code_7",
+      "call_id": "tc_code_7",
+      "result": "written file_7_checksum_abc7"
+    },
+    {
+      "id": "v_set_7",
+      "type": "set_var",
+      "timestamp": 1248,
+      "parent_id": "tr_code_7",
+      "key": "build_version",
+      "value": "v1.7"
+    },
+    {
+      "id": "tc_code_8",
+      "type": "tool_call",
+      "timestamp": 1250,
+      "parent_id": "v_set_7",
+      "tool_name": "write_file_8",
+      "arguments": {
+        "file": "file_8.py"
+      }
+    },
+    {
+      "id": "tr_code_8",
+      "type": "tool_result",
+      "timestamp": 1255,
+      "parent_id": "tc_code_8",
+      "call_id": "tc_code_8",
+      "result": "written file_8_checksum_abc8"
+    },
+    {
+      "id": "v_set_8",
+      "type": "set_var",
+      "timestamp": 1258,
+      "parent_id": "tr_code_8",
+      "key": "build_version",
+      "value": "v1.8"
+    },
+    {
+      "id": "tc_code_9",
+      "type": "tool_call",
+      "timestamp": 1260,
+      "parent_id": "v_set_8",
+      "tool_name": "write_file_9",
+      "arguments": {
+        "file": "file_9.py"
+      }
+    },
+    {
+      "id": "tr_code_9",
+      "type": "tool_result",
+      "timestamp": 1265,
+      "parent_id": "tc_code_9",
+      "call_id": "tc_code_9",
+      "result": "written file_9_checksum_abc9"
+    },
+    {
+      "id": "v_set_9",
+      "type": "set_var",
+      "timestamp": 1268,
+      "parent_id": "tr_code_9",
+      "key": "build_version",
+      "value": "v1.9"
+    },
+    {
+      "id": "tc_code_10",
+      "type": "tool_call",
+      "timestamp": 1270,
+      "parent_id": "v_set_9",
+      "tool_name": "write_file_10",
+      "arguments": {
+        "file": "file_10.py"
+      }
+    },
+    {
+      "id": "tr_code_10",
+      "type": "tool_result",
+      "timestamp": 1275,
+      "parent_id": "tc_code_10",
+      "call_id": "tc_code_10",
+      "result": "written file_10_checksum_abc10"
+    },
+    {
+      "id": "v_set_10",
+      "type": "set_var",
+      "timestamp": 1278,
+      "parent_id": "tr_code_10",
+      "key": "build_version",
+      "value": "v1.10"
+    },
+    {
+      "id": "tc_code_11",
+      "type": "tool_call",
+      "timestamp": 1280,
+      "parent_id": "v_set_10",
+      "tool_name": "write_file_11",
+      "arguments": {
+        "file": "file_11.py"
+      }
+    },
+    {
+      "id": "tr_code_11",
+      "type": "tool_result",
+      "timestamp": 1285,
+      "parent_id": "tc_code_11",
+      "call_id": "tc_code_11",
+      "result": "written file_11_checksum_abc11"
+    },
+    {
+      "id": "v_set_11",
+      "type": "set_var",
+      "timestamp": 1288,
+      "parent_id": "tr_code_11",
+      "key": "build_version",
+      "value": "v1.11"
+    },
+    {
+      "id": "tc_code_12",
+      "type": "tool_call",
+      "timestamp": 1290,
+      "parent_id": "v_set_11",
+      "tool_name": "write_file_12",
+      "arguments": {
+        "file": "file_12.py"
+      }
+    },
+    {
+      "id": "tr_code_12",
+      "type": "tool_result",
+      "timestamp": 1295,
+      "parent_id": "tc_code_12",
+      "call_id": "tc_code_12",
+      "result": "written file_12_checksum_abc12"
+    },
+    {
+      "id": "v_set_12",
+      "type": "set_var",
+      "timestamp": 1298,
+      "parent_id": "tr_code_12",
+      "key": "build_version",
+      "value": "v1.12"
+    },
+    {
+      "id": "tc_code_13",
+      "type": "tool_call",
+      "timestamp": 1300,
+      "parent_id": "v_set_12",
+      "tool_name": "write_file_13",
+      "arguments": {
+        "file": "file_13.py"
+      }
+    },
+    {
+      "id": "tr_code_13",
+      "type": "tool_result",
+      "timestamp": 1305,
+      "parent_id": "tc_code_13",
+      "call_id": "tc_code_13",
+      "result": "written file_13_checksum_abc13"
+    },
+    {
+      "id": "v_set_13",
+      "type": "set_var",
+      "timestamp": 1308,
+      "parent_id": "tr_code_13",
+      "key": "build_version",
+      "value": "v1.13"
+    },
+    {
+      "id": "tc_code_14",
+      "type": "tool_call",
+      "timestamp": 1310,
+      "parent_id": "v_set_13",
+      "tool_name": "write_file_14",
+      "arguments": {
+        "file": "file_14.py"
+      }
+    },
+    {
+      "id": "tr_code_14",
+      "type": "tool_result",
+      "timestamp": 1315,
+      "parent_id": "tc_code_14",
+      "call_id": "tc_code_14",
+      "result": "written file_14_checksum_abc14"
+    },
+    {
+      "id": "v_set_14",
+      "type": "set_var",
+      "timestamp": 1318,
+      "parent_id": "tr_code_14",
+      "key": "build_version",
+      "value": "v1.14"
+    },
+    {
+      "id": "tc_code_15",
+      "type": "tool_call",
+      "timestamp": 1320,
+      "parent_id": "v_set_14",
+      "tool_name": "write_file_15",
+      "arguments": {
+        "file": "file_15.py"
+      }
+    },
+    {
+      "id": "tr_code_15",
+      "type": "tool_result",
+      "timestamp": 1325,
+      "parent_id": "tc_code_15",
+      "call_id": "tc_code_15",
+      "result": "written file_15_checksum_abc15"
+    },
+    {
+      "id": "v_set_15",
+      "type": "set_var",
+      "timestamp": 1328,
+      "parent_id": "tr_code_15",
+      "key": "build_version",
+      "value": "v1.15"
+    },
+    {
+      "id": "tc_code_16",
+      "type": "tool_call",
+      "timestamp": 1330,
+      "parent_id": "v_set_15",
+      "tool_name": "write_file_16",
+      "arguments": {
+        "file": "file_16.py"
+      }
+    },
+    {
+      "id": "tr_code_16",
+      "type": "tool_result",
+      "timestamp": 1335,
+      "parent_id": "tc_code_16",
+      "call_id": "tc_code_16",
+      "result": "written file_16_checksum_abc16"
+    },
+    {
+      "id": "v_set_16",
+      "type": "set_var",
+      "timestamp": 1338,
+      "parent_id": "tr_code_16",
+      "key": "build_version",
+      "value": "v1.16"
+    },
+    {
+      "id": "tc_code_17",
+      "type": "tool_call",
+      "timestamp": 1340,
+      "parent_id": "v_set_16",
+      "tool_name": "write_file_17",
+      "arguments": {
+        "file": "file_17.py"
+      }
+    },
+    {
+      "id": "tr_code_17",
+      "type": "tool_result",
+      "timestamp": 1345,
+      "parent_id": "tc_code_17",
+      "call_id": "tc_code_17",
+      "result": "written file_17_checksum_abc17"
+    },
+    {
+      "id": "v_set_17",
+      "type": "set_var",
+      "timestamp": 1348,
+      "parent_id": "tr_code_17",
+      "key": "build_version",
+      "value": "v1.17"
+    },
+    {
+      "id": "tc_code_18",
+      "type": "tool_call",
+      "timestamp": 1350,
+      "parent_id": "v_set_17",
+      "tool_name": "write_file_18",
+      "arguments": {
+        "file": "file_18.py"
+      }
+    },
+    {
+      "id": "tr_code_18",
+      "type": "tool_result",
+      "timestamp": 1355,
+      "parent_id": "tc_code_18",
+      "call_id": "tc_code_18",
+      "result": "written file_18_checksum_abc18"
+    },
+    {
+      "id": "v_set_18",
+      "type": "set_var",
+      "timestamp": 1358,
+      "parent_id": "tr_code_18",
+      "key": "build_version",
+      "value": "v1.18"
+    },
+    {
+      "id": "tc_code_19",
+      "type": "tool_call",
+      "timestamp": 1360,
+      "parent_id": "v_set_18",
+      "tool_name": "write_file_19",
+      "arguments": {
+        "file": "file_19.py"
+      }
+    },
+    {
+      "id": "tr_code_19",
+      "type": "tool_result",
+      "timestamp": 1365,
+      "parent_id": "tc_code_19",
+      "call_id": "tc_code_19",
+      "result": "written file_19_checksum_abc19"
+    },
+    {
+      "id": "v_set_19",
+      "type": "set_var",
+      "timestamp": 1368,
+      "parent_id": "tr_code_19",
+      "key": "build_version",
+      "value": "v1.19"
+    },
+    {
+      "id": "tc_code_20",
+      "type": "tool_call",
+      "timestamp": 1370,
+      "parent_id": "v_set_19",
+      "tool_name": "write_file_20",
+      "arguments": {
+        "file": "file_20.py"
+      }
+    },
+    {
+      "id": "tr_code_20",
+      "type": "tool_result",
+      "timestamp": 1375,
+      "parent_id": "tc_code_20",
+      "call_id": "tc_code_20",
+      "result": "written file_20_checksum_abc20"
+    },
+    {
+      "id": "v_set_20",
+      "type": "set_var",
+      "timestamp": 1378,
+      "parent_id": "tr_code_20",
+      "key": "build_version",
+      "value": "v1.20"
+    },
+    {
+      "id": "tc_code_21",
+      "type": "tool_call",
+      "timestamp": 1380,
+      "parent_id": "v_set_20",
+      "tool_name": "write_file_21",
+      "arguments": {
+        "file": "file_21.py"
+      }
+    },
+    {
+      "id": "tr_code_21",
+      "type": "tool_result",
+      "timestamp": 1385,
+      "parent_id": "tc_code_21",
+      "call_id": "tc_code_21",
+      "result": "written file_21_checksum_abc21"
+    },
+    {
+      "id": "v_set_21",
+      "type": "set_var",
+      "timestamp": 1388,
+      "parent_id": "tr_code_21",
+      "key": "build_version",
+      "value": "v1.21"
+    },
+    {
+      "id": "tc_code_22",
+      "type": "tool_call",
+      "timestamp": 1390,
+      "parent_id": "v_set_21",
+      "tool_name": "write_file_22",
+      "arguments": {
+        "file": "file_22.py"
+      }
+    },
+    {
+      "id": "tr_code_22",
+      "type": "tool_result",
+      "timestamp": 1395,
+      "parent_id": "tc_code_22",
+      "call_id": "tc_code_22",
+      "result": "written file_22_checksum_abc22"
+    },
+    {
+      "id": "v_set_22",
+      "type": "set_var",
+      "timestamp": 1398,
+      "parent_id": "tr_code_22",
+      "key": "build_version",
+      "value": "v1.22"
+    },
+    {
+      "id": "tc_code_23",
+      "type": "tool_call",
+      "timestamp": 1400,
+      "parent_id": "v_set_22",
+      "tool_name": "write_file_23",
+      "arguments": {
+        "file": "file_23.py"
+      }
+    },
+    {
+      "id": "tr_code_23",
+      "type": "tool_result",
+      "timestamp": 1405,
+      "parent_id": "tc_code_23",
+      "call_id": "tc_code_23",
+      "result": "written file_23_checksum_abc23"
+    },
+    {
+      "id": "v_set_23",
+      "type": "set_var",
+      "timestamp": 1408,
+      "parent_id": "tr_code_23",
+      "key": "build_version",
+      "value": "v1.23"
+    },
+    {
+      "id": "tc_code_24",
+      "type": "tool_call",
+      "timestamp": 1410,
+      "parent_id": "v_set_23",
+      "tool_name": "write_file_24",
+      "arguments": {
+        "file": "file_24.py"
+      }
+    },
+    {
+      "id": "tr_code_24",
+      "type": "tool_result",
+      "timestamp": 1415,
+      "parent_id": "tc_code_24",
+      "call_id": "tc_code_24",
+      "result": "written file_24_checksum_abc24"
+    },
+    {
+      "id": "v_set_24",
+      "type": "set_var",
+      "timestamp": 1418,
+      "parent_id": "tr_code_24",
+      "key": "build_version",
+      "value": "v1.24"
+    },
+    {
+      "id": "tc_code_25",
+      "type": "tool_call",
+      "timestamp": 1420,
+      "parent_id": "v_set_24",
+      "tool_name": "write_file_25",
+      "arguments": {
+        "file": "file_25.py"
+      }
+    },
+    {
+      "id": "tr_code_25",
+      "type": "tool_result",
+      "timestamp": 1425,
+      "parent_id": "tc_code_25",
+      "call_id": "tc_code_25",
+      "result": "written file_25_checksum_abc25"
+    },
+    {
+      "id": "v_set_25",
+      "type": "set_var",
+      "timestamp": 1428,
+      "parent_id": "tr_code_25",
+      "key": "build_version",
+      "value": "v1.25"
+    },
+    {
+      "id": "tc_code_26",
+      "type": "tool_call",
+      "timestamp": 1430,
+      "parent_id": "v_set_25",
+      "tool_name": "write_file_26",
+      "arguments": {
+        "file": "file_26.py"
+      }
+    },
+    {
+      "id": "tr_code_26",
+      "type": "tool_result",
+      "timestamp": 1435,
+      "parent_id": "tc_code_26",
+      "call_id": "tc_code_26",
+      "result": "written file_26_checksum_abc26"
+    },
+    {
+      "id": "v_set_26",
+      "type": "set_var",
+      "timestamp": 1438,
+      "parent_id": "tr_code_26",
+      "key": "build_version",
+      "value": "v1.26"
+    },
+    {
+      "id": "tc_code_27",
+      "type": "tool_call",
+      "timestamp": 1440,
+      "parent_id": "v_set_26",
+      "tool_name": "write_file_27",
+      "arguments": {
+        "file": "file_27.py"
+      }
+    },
+    {
+      "id": "tr_code_27",
+      "type": "tool_result",
+      "timestamp": 1445,
+      "parent_id": "tc_code_27",
+      "call_id": "tc_code_27",
+      "result": "written file_27_checksum_abc27"
+    },
+    {
+      "id": "v_set_27",
+      "type": "set_var",
+      "timestamp": 1448,
+      "parent_id": "tr_code_27",
+      "key": "build_version",
+      "value": "v1.27"
+    },
+    {
+      "id": "tc_code_28",
+      "type": "tool_call",
+      "timestamp": 1450,
+      "parent_id": "v_set_27",
+      "tool_name": "write_file_28",
+      "arguments": {
+        "file": "file_28.py"
+      }
+    },
+    {
+      "id": "tr_code_28",
+      "type": "tool_result",
+      "timestamp": 1455,
+      "parent_id": "tc_code_28",
+      "call_id": "tc_code_28",
+      "result": "written file_28_checksum_abc28"
+    },
+    {
+      "id": "v_set_28",
+      "type": "set_var",
+      "timestamp": 1458,
+      "parent_id": "tr_code_28",
+      "key": "build_version",
+      "value": "v1.28"
+    },
+    {
+      "id": "tc_code_29",
+      "type": "tool_call",
+      "timestamp": 1460,
+      "parent_id": "v_set_28",
+      "tool_name": "write_file_29",
+      "arguments": {
+        "file": "file_29.py"
+      }
+    },
+    {
+      "id": "tr_code_29",
+      "type": "tool_result",
+      "timestamp": 1465,
+      "parent_id": "tc_code_29",
+      "call_id": "tc_code_29",
+      "result": "written file_29_checksum_abc29"
+    },
+    {
+      "id": "v_set_29",
+      "type": "set_var",
+      "timestamp": 1468,
+      "parent_id": "tr_code_29",
+      "key": "build_version",
+      "value": "v1.29"
+    },
+    {
+      "id": "tc_code_30",
+      "type": "tool_call",
+      "timestamp": 1470,
+      "parent_id": "v_set_29",
+      "tool_name": "write_file_30",
+      "arguments": {
+        "file": "file_30.py"
+      }
+    },
+    {
+      "id": "tr_code_30",
+      "type": "tool_result",
+      "timestamp": 1475,
+      "parent_id": "tc_code_30",
+      "call_id": "tc_code_30",
+      "result": "written file_30_checksum_abc30"
+    },
+    {
+      "id": "v_set_30",
+      "type": "set_var",
+      "timestamp": 1478,
+      "parent_id": "tr_code_30",
+      "key": "build_version",
+      "value": "v1.30"
+    },
+    {
+      "id": "tc_dup_1",
+      "type": "tool_call",
+      "timestamp": 1510,
+      "parent_id": "v_set_30",
+      "tool_name": "checksum_check",
+      "arguments": {
+        "target": "file_30.py"
+      }
+    },
+    {
+      "id": "tr_dup_1",
+      "type": "tool_result",
+      "timestamp": 1515,
+      "parent_id": "tc_dup_1",
+      "call_id": "tc_dup_1",
+      "result": "checksum matched"
+    },
+    {
+      "id": "tc_dup_2",
+      "type": "tool_call",
+      "timestamp": 1520,
+      "parent_id": "tr_dup_1",
+      "tool_name": "checksum_check",
+      "arguments": {
+        "target": "file_30.py"
+      }
+    },
+    {
+      "id": "tr_dup_2",
+      "type": "tool_result",
+      "timestamp": 1525,
+      "parent_id": "tc_dup_2",
+      "call_id": "tc_dup_2",
+      "result": "checksum matched"
+    },
+    {
+      "id": "tc_dup_3",
+      "type": "tool_call",
+      "timestamp": 1530,
+      "parent_id": "tr_dup_2",
+      "tool_name": "checksum_check",
+      "arguments": {
+        "target": "file_30.py"
+      }
+    },
+    {
+      "id": "tr_dup_3",
+      "type": "tool_result",
+      "timestamp": 1535,
+      "parent_id": "tc_dup_3",
+      "call_id": "tc_dup_3",
+      "result": "checksum matched"
+    },
+    {
+      "id": "tc_dup_4",
+      "type": "tool_call",
+      "timestamp": 1540,
+      "parent_id": "tr_dup_3",
+      "tool_name": "checksum_check",
+      "arguments": {
+        "target": "file_30.py"
+      }
+    },
+    {
+      "id": "tr_dup_4",
+      "type": "tool_result",
+      "timestamp": 1545,
+      "parent_id": "tc_dup_4",
+      "call_id": "tc_dup_4",
+      "result": "checksum matched"
+    },
+    {
+      "id": "tc_dup_5",
+      "type": "tool_call",
+      "timestamp": 1550,
+      "parent_id": "tr_dup_4",
+      "tool_name": "checksum_check",
+      "arguments": {
+        "target": "file_30.py"
+      }
+    },
+    {
+      "id": "tr_dup_5",
+      "type": "tool_result",
+      "timestamp": 1555,
+      "parent_id": "tc_dup_5",
+      "call_id": "tc_dup_5",
+      "result": "checksum matched"
+    },
+    {
+      "id": "tc_dup_6",
+      "type": "tool_call",
+      "timestamp": 1560,
+      "parent_id": "tr_dup_5",
+      "tool_name": "checksum_check",
+      "arguments": {
+        "target": "file_30.py"
+      }
+    },
+    {
+      "id": "tr_dup_6",
+      "type": "tool_result",
+      "timestamp": 1565,
+      "parent_id": "tc_dup_6",
+      "call_id": "tc_dup_6",
+      "result": "checksum matched"
+    },
+    {
+      "id": "tc_dup_7",
+      "type": "tool_call",
+      "timestamp": 1570,
+      "parent_id": "tr_dup_6",
+      "tool_name": "checksum_check",
+      "arguments": {
+        "target": "file_30.py"
+      }
+    },
+    {
+      "id": "tr_dup_7",
+      "type": "tool_result",
+      "timestamp": 1575,
+      "parent_id": "tc_dup_7",
+      "call_id": "tc_dup_7",
+      "result": "checksum matched"
+    },
+    {
+      "id": "tc_dup_8",
+      "type": "tool_call",
+      "timestamp": 1580,
+      "parent_id": "tr_dup_7",
+      "tool_name": "checksum_check",
+      "arguments": {
+        "target": "file_30.py"
+      }
+    },
+    {
+      "id": "tr_dup_8",
+      "type": "tool_result",
+      "timestamp": 1585,
+      "parent_id": "tc_dup_8",
+      "call_id": "tc_dup_8",
+      "result": "checksum matched"
+    },
+    {
+      "id": "tc_dup_9",
+      "type": "tool_call",
+      "timestamp": 1590,
+      "parent_id": "tr_dup_8",
+      "tool_name": "checksum_check",
+      "arguments": {
+        "target": "file_30.py"
+      }
+    },
+    {
+      "id": "tr_dup_9",
+      "type": "tool_result",
+      "timestamp": 1595,
+      "parent_id": "tc_dup_9",
+      "call_id": "tc_dup_9",
+      "result": "checksum matched"
+    },
+    {
+      "id": "tc_dup_10",
+      "type": "tool_call",
+      "timestamp": 1600,
+      "parent_id": "tr_dup_9",
+      "tool_name": "checksum_check",
+      "arguments": {
+        "target": "file_30.py"
+      }
+    },
+    {
+      "id": "tr_dup_10",
+      "type": "tool_result",
+      "timestamp": 1605,
+      "parent_id": "tc_dup_10",
+      "call_id": "tc_dup_10",
+      "result": "checksum matched"
+    },
+    {
+      "id": "e100",
+      "type": "decision",
+      "timestamp": 1700,
+      "parent_id": "tr_dup_10",
+      "content": "Docker container successfully compiled, artifact written."
+    }
+  ],
+  "probes": {
+    "recall": {
+      "contains": [
+        "8080"
+      ],
+      "excludes": []
+    },
+    "artifact": {
+      "contains": [
+        "checksum matched"
+      ],
+      "excludes": [
+        "failed dependency 3 setup"
+      ],
+      "recovered": {
+        "node_id": "tr_code_1",
+        "key": "result",
+        "value": "written file_1_checksum_abc1"
+      }
+    },
+    "continuation": {
+      "contains": [
+        "docker",
+        "v1.30"
+      ],
+      "excludes": [
+        "build_version = v1.5"
+      ]
+    },
+    "decision": {
+      "contains": [
+        "docker",
+        "dependencies failed",
+        "Pivoting"
+      ],
+      "excludes": [
+        "dep_check_1",
+        "dep_check_5"
+      ]
+    }
+  }
+}

@@ -1,0 +1,463 @@
+{
+  "events": [
+    {
+      "id": "e01",
+      "type": "decision",
+      "timestamp": 1000,
+      "parent_id": null,
+      "content": "Research: cancer immunotherapy clinical trials"
+    },
+    {
+      "id": "e02",
+      "type": "set_var",
+      "timestamp": 1010,
+      "parent_id": "e01",
+      "key": "agent",
+      "value": "Pembrolizumab"
+    },
+    {
+      "id": "e03",
+      "type": "set_var",
+      "timestamp": 1020,
+      "parent_id": "e02",
+      "key": "phase",
+      "value": "Phase II"
+    },
+    {
+      "id": "a1",
+      "type": "decision",
+      "timestamp": 1030,
+      "parent_id": "e03",
+      "content": "Search lung cancer trials in bioRxiv"
+    },
+    {
+      "id": "a2",
+      "type": "tool_call",
+      "timestamp": 1040,
+      "parent_id": "a1",
+      "tool_name": "biorxiv_search",
+      "arguments": {
+        "q": "Pembrolizumab lung"
+      }
+    },
+    {
+      "id": "a3",
+      "type": "tool_result",
+      "timestamp": 1050,
+      "parent_id": "a2",
+      "call_id": "a2",
+      "result": "no preprints found"
+    },
+    {
+      "id": "ab1",
+      "type": "abandon",
+      "timestamp": 1060,
+      "parent_id": "a3",
+      "ref_to": [
+        "a1"
+      ]
+    },
+    {
+      "id": "e04",
+      "type": "decision",
+      "timestamp": 1070,
+      "parent_id": "e03",
+      "content": "No preprints in bioRxiv. Pivoting to clinicaltrials.gov database"
+    },
+    {
+      "id": "e05",
+      "type": "set_var",
+      "timestamp": 1080,
+      "parent_id": "e04",
+      "key": "phase",
+      "value": "Phase III"
+    },
+    {
+      "id": "c1",
+      "type": "decision",
+      "timestamp": 1100,
+      "parent_id": "e05",
+      "content": "Searching trial records: look for NCT001"
+    },
+    {
+      "id": "c2",
+      "type": "tool_call",
+      "timestamp": 1110,
+      "parent_id": "c1",
+      "tool_name": "clinical_trials_search",
+      "arguments": {
+        "id": "NCT001"
+      }
+    },
+    {
+      "id": "c3",
+      "type": "tool_result",
+      "timestamp": 1120,
+      "parent_id": "c2",
+      "call_id": "c2",
+      "result": "NCT001_details, cross reference NCT002"
+    },
+    {
+      "id": "e06",
+      "type": "set_var",
+      "timestamp": 1130,
+      "parent_id": "c3",
+      "key": "trial_id",
+      "value": "NCT00244673"
+    },
+    {
+      "id": "tc_paper_1",
+      "type": "tool_call",
+      "timestamp": 1150,
+      "parent_id": "e06",
+      "tool_name": "fetch_trial_abstract_1",
+      "arguments": {}
+    },
+    {
+      "id": "tr_paper_1",
+      "type": "tool_result",
+      "timestamp": 1155,
+      "parent_id": "tc_paper_1",
+      "call_id": "tc_paper_1",
+      "result": "abstract_parsed"
+    },
+    {
+      "id": "tc_paper_2",
+      "type": "tool_call",
+      "timestamp": 1160,
+      "parent_id": "tr_paper_1",
+      "tool_name": "fetch_trial_abstract_2",
+      "arguments": {}
+    },
+    {
+      "id": "tr_paper_2",
+      "type": "tool_result",
+      "timestamp": 1165,
+      "parent_id": "tc_paper_2",
+      "call_id": "tc_paper_2",
+      "result": "abstract_parsed"
+    },
+    {
+      "id": "tc_paper_3",
+      "type": "tool_call",
+      "timestamp": 1170,
+      "parent_id": "tr_paper_2",
+      "tool_name": "fetch_trial_abstract_3",
+      "arguments": {}
+    },
+    {
+      "id": "tr_paper_3",
+      "type": "tool_result",
+      "timestamp": 1175,
+      "parent_id": "tc_paper_3",
+      "call_id": "tc_paper_3",
+      "result": "abstract_parsed"
+    },
+    {
+      "id": "tc_paper_4",
+      "type": "tool_call",
+      "timestamp": 1180,
+      "parent_id": "tr_paper_3",
+      "tool_name": "fetch_trial_abstract_4",
+      "arguments": {}
+    },
+    {
+      "id": "tr_paper_4",
+      "type": "tool_result",
+      "timestamp": 1185,
+      "parent_id": "tc_paper_4",
+      "call_id": "tc_paper_4",
+      "result": "abstract_parsed"
+    },
+    {
+      "id": "tc_paper_5",
+      "type": "tool_call",
+      "timestamp": 1190,
+      "parent_id": "tr_paper_4",
+      "tool_name": "fetch_trial_abstract_5",
+      "arguments": {}
+    },
+    {
+      "id": "tr_paper_5",
+      "type": "tool_result",
+      "timestamp": 1195,
+      "parent_id": "tc_paper_5",
+      "call_id": "tc_paper_5",
+      "result": "abstract_parsed"
+    },
+    {
+      "id": "tc_paper_6",
+      "type": "tool_call",
+      "timestamp": 1200,
+      "parent_id": "tr_paper_5",
+      "tool_name": "fetch_trial_abstract_6",
+      "arguments": {}
+    },
+    {
+      "id": "tr_paper_6",
+      "type": "tool_result",
+      "timestamp": 1205,
+      "parent_id": "tc_paper_6",
+      "call_id": "tc_paper_6",
+      "result": "abstract_parsed"
+    },
+    {
+      "id": "tc_paper_7",
+      "type": "tool_call",
+      "timestamp": 1210,
+      "parent_id": "tr_paper_6",
+      "tool_name": "fetch_trial_abstract_7",
+      "arguments": {}
+    },
+    {
+      "id": "tr_paper_7",
+      "type": "tool_result",
+      "timestamp": 1215,
+      "parent_id": "tc_paper_7",
+      "call_id": "tc_paper_7",
+      "result": "abstract_parsed"
+    },
+    {
+      "id": "tc_paper_8",
+      "type": "tool_call",
+      "timestamp": 1220,
+      "parent_id": "tr_paper_7",
+      "tool_name": "fetch_trial_abstract_8",
+      "arguments": {}
+    },
+    {
+      "id": "tr_paper_8",
+      "type": "tool_result",
+      "timestamp": 1225,
+      "parent_id": "tc_paper_8",
+      "call_id": "tc_paper_8",
+      "result": "abstract_parsed"
+    },
+    {
+      "id": "tc_paper_9",
+      "type": "tool_call",
+      "timestamp": 1230,
+      "parent_id": "tr_paper_8",
+      "tool_name": "fetch_trial_abstract_9",
+      "arguments": {}
+    },
+    {
+      "id": "tr_paper_9",
+      "type": "tool_result",
+      "timestamp": 1235,
+      "parent_id": "tc_paper_9",
+      "call_id": "tc_paper_9",
+      "result": "abstract_parsed"
+    },
+    {
+      "id": "tc_paper_10",
+      "type": "tool_call",
+      "timestamp": 1240,
+      "parent_id": "tr_paper_9",
+      "tool_name": "fetch_trial_abstract_10",
+      "arguments": {}
+    },
+    {
+      "id": "tr_paper_10",
+      "type": "tool_result",
+      "timestamp": 1245,
+      "parent_id": "tc_paper_10",
+      "call_id": "tc_paper_10",
+      "result": "abstract_parsed"
+    },
+    {
+      "id": "tc_paper_11",
+      "type": "tool_call",
+      "timestamp": 1250,
+      "parent_id": "tr_paper_10",
+      "tool_name": "fetch_trial_abstract_11",
+      "arguments": {}
+    },
+    {
+      "id": "tr_paper_11",
+      "type": "tool_result",
+      "timestamp": 1255,
+      "parent_id": "tc_paper_11",
+      "call_id": "tc_paper_11",
+      "result": "abstract_parsed"
+    },
+    {
+      "id": "tc_paper_12",
+      "type": "tool_call",
+      "timestamp": 1260,
+      "parent_id": "tr_paper_11",
+      "tool_name": "fetch_trial_abstract_12",
+      "arguments": {}
+    },
+    {
+      "id": "tr_paper_12",
+      "type": "tool_result",
+      "timestamp": 1265,
+      "parent_id": "tc_paper_12",
+      "call_id": "tc_paper_12",
+      "result": "abstract_parsed"
+    },
+    {
+      "id": "e07",
+      "type": "tool_call",
+      "timestamp": 1300,
+      "parent_id": "tr_paper_12",
+      "tool_name": "clinical_trials_search",
+      "arguments": {
+        "id": "NCT00244673"
+      }
+    },
+    {
+      "id": "e08",
+      "type": "tool_result",
+      "timestamp": 1310,
+      "parent_id": "e07",
+      "call_id": "e07",
+      "result": "NCT_verified_pembro_melanoma"
+    },
+    {
+      "id": "e09_1",
+      "type": "tool_call",
+      "timestamp": 1330,
+      "parent_id": "e08",
+      "tool_name": "clinical_trials_search",
+      "arguments": {
+        "id": "NCT00244673"
+      }
+    },
+    {
+      "id": "e10_1",
+      "type": "tool_result",
+      "timestamp": 1335,
+      "parent_id": "e09_1",
+      "call_id": "e09_1",
+      "result": "NCT_verified_pembro_melanoma"
+    },
+    {
+      "id": "e09_2",
+      "type": "tool_call",
+      "timestamp": 1340,
+      "parent_id": "e10_1",
+      "tool_name": "clinical_trials_search",
+      "arguments": {
+        "id": "NCT00244673"
+      }
+    },
+    {
+      "id": "e10_2",
+      "type": "tool_result",
+      "timestamp": 1345,
+      "parent_id": "e09_2",
+      "call_id": "e09_2",
+      "result": "NCT_verified_pembro_melanoma"
+    },
+    {
+      "id": "e09_3",
+      "type": "tool_call",
+      "timestamp": 1350,
+      "parent_id": "e10_2",
+      "tool_name": "clinical_trials_search",
+      "arguments": {
+        "id": "NCT00244673"
+      }
+    },
+    {
+      "id": "e10_3",
+      "type": "tool_result",
+      "timestamp": 1355,
+      "parent_id": "e09_3",
+      "call_id": "e09_3",
+      "result": "NCT_verified_pembro_melanoma"
+    },
+    {
+      "id": "e09_4",
+      "type": "tool_call",
+      "timestamp": 1360,
+      "parent_id": "e10_3",
+      "tool_name": "clinical_trials_search",
+      "arguments": {
+        "id": "NCT00244673"
+      }
+    },
+    {
+      "id": "e10_4",
+      "type": "tool_result",
+      "timestamp": 1365,
+      "parent_id": "e09_4",
+      "call_id": "e09_4",
+      "result": "NCT_verified_pembro_melanoma"
+    },
+    {
+      "id": "e09_5",
+      "type": "tool_call",
+      "timestamp": 1370,
+      "parent_id": "e10_4",
+      "tool_name": "clinical_trials_search",
+      "arguments": {
+        "id": "NCT00244673"
+      }
+    },
+    {
+      "id": "e10_5",
+      "type": "tool_result",
+      "timestamp": 1375,
+      "parent_id": "e09_5",
+      "call_id": "e09_5",
+      "result": "NCT_verified_pembro_melanoma"
+    },
+    {
+      "id": "e11",
+      "type": "decision",
+      "timestamp": 1400,
+      "parent_id": "e10_5",
+      "content": "Literature scan verified"
+    },
+    {
+      "id": "cycle_link",
+      "type": "edge_injection",
+      "src": "c3",
+      "dst": "c1"
+    }
+  ],
+  "probes": {
+    "recall": {
+      "contains": [
+        "Pembrolizumab"
+      ],
+      "excludes": []
+    },
+    "artifact": {
+      "contains": [
+        "NCT_verified_pembro_melanoma"
+      ],
+      "excludes": [
+        "no preprints found"
+      ],
+      "recovered": {
+        "node_id": "e08",
+        "key": "result",
+        "value": "NCT_verified_pembro_melanoma"
+      }
+    },
+    "continuation": {
+      "contains": [
+        "Phase III",
+        "NCT00244673"
+      ],
+      "excludes": [
+        "phase = Phase II"
+      ]
+    },
+    "decision": {
+      "contains": [
+        "bioRxiv",
+        "clinicaltrials.gov",
+        "Pivoting"
+      ],
+      "excludes": [
+        "Pembrolizumab lung",
+        "biorxiv_search"
+      ]
+    }
+  }
+}

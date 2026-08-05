@@ -1,0 +1,158 @@
+{
+  "events": [
+    {
+      "id": "e01",
+      "type": "decision",
+      "timestamp": 1000,
+      "parent_id": null,
+      "content": "Research: LLM alignment methods"
+    },
+    {
+      "id": "e01_sub",
+      "type": "decision",
+      "timestamp": 1005,
+      "parent_id": "e01",
+      "content": "Initiating search logs..."
+    },
+    {
+      "id": "e02",
+      "type": "set_var",
+      "timestamp": 1010,
+      "parent_id": "e01_sub",
+      "key": "target_topic",
+      "value": "DPO"
+    },
+    {
+      "id": "e02_sub",
+      "type": "set_var",
+      "timestamp": 1015,
+      "parent_id": "e02",
+      "key": "max_records",
+      "value": 50
+    },
+    {
+      "id": "a01",
+      "type": "decision",
+      "timestamp": 1020,
+      "parent_id": "e02_sub",
+      "content": "Search query: RLHF PPO Pytorch code"
+    },
+    {
+      "id": "a02",
+      "type": "tool_call",
+      "timestamp": 1030,
+      "parent_id": "a01",
+      "tool_name": "arxiv_search",
+      "arguments": {
+        "q": "RLHF PPO Pytorch"
+      }
+    },
+    {
+      "id": "a03",
+      "type": "tool_result",
+      "timestamp": 1040,
+      "parent_id": "a02",
+      "call_id": "a02",
+      "result": "no results matching code query"
+    },
+    {
+      "id": "a04_retry",
+      "type": "tool_call",
+      "timestamp": 1045,
+      "parent_id": "a03",
+      "tool_name": "arxiv_search",
+      "arguments": {
+        "q": "PPO Pytorch retry"
+      }
+    },
+    {
+      "id": "a04_res",
+      "type": "tool_result",
+      "timestamp": 1048,
+      "parent_id": "a04_retry",
+      "call_id": "a04_retry",
+      "result": "no results"
+    },
+    {
+      "id": "ab01",
+      "type": "abandon",
+      "timestamp": 1050,
+      "parent_id": "a04_res",
+      "ref_to": [
+        "a01"
+      ]
+    },
+    {
+      "id": "e03",
+      "type": "decision",
+      "timestamp": 1060,
+      "parent_id": "e02_sub",
+      "content": "PPO query empty. Pivoting to DPO literature in bioRxiv/arXiv"
+    },
+    {
+      "id": "e04",
+      "type": "tool_call",
+      "timestamp": 1070,
+      "parent_id": "e03",
+      "tool_name": "arxiv_search",
+      "arguments": {
+        "q": "Direct Preference Optimization"
+      }
+    },
+    {
+      "id": "e05",
+      "type": "tool_result",
+      "timestamp": 1080,
+      "parent_id": "e04",
+      "call_id": "e04",
+      "result": "found paper_id: arxiv_2305.18290"
+    },
+    {
+      "id": "e06",
+      "type": "decision",
+      "timestamp": 1090,
+      "parent_id": "e05",
+      "content": "Relevant paper found. Analysis completed."
+    }
+  ],
+  "probes": {
+    "recall": {
+      "contains": [
+        "DPO"
+      ],
+      "excludes": []
+    },
+    "artifact": {
+      "contains": [
+        "arxiv_2305.18290"
+      ],
+      "excludes": [
+        "RLHF PPO Pytorch"
+      ],
+      "recovered": {
+        "node_id": "e05",
+        "key": "result",
+        "value": "found paper_id: arxiv_2305.18290"
+      }
+    },
+    "continuation": {
+      "contains": [
+        "arxiv_2305.18290",
+        "completed"
+      ],
+      "excludes": [
+        "RLHF PPO Pytorch code"
+      ]
+    },
+    "decision": {
+      "contains": [
+        "PPO",
+        "DPO",
+        "Pivoting"
+      ],
+      "excludes": [
+        "no results matching code query"
+      ]
+    }
+  }
+}
