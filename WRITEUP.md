@@ -196,6 +196,16 @@ scoring 0% recall on medium traces but 100% on long traces — remains
 unexplained and is reported as an open question rather than papered
 over.
 
+### Supplementary Finding: Live Answer-Quality Check
+
+*   **Overview**: This is a small, separate semantic check (separate from the main benchmark) covering a single specific scenario: an abandoned execution branch containing a stale variable overwrite (e.g. `refill_rate` initially set to 5, temporarily overwritten to 8 in an abandoned path attempt, and then correctly resumed at 5).
+*   **API Calls**: A total of 28 live API calls were made to Claude 3.5 Sonnet and Gemini 2.5 Flash across 4 separate runs, comparing uncompacted and compacted prompts on the identical target question. 
+*   **Result**: 
+    *   **Uncompacted Prompts**: Answered correctly **0/14** times (the model consistently latched onto the abandoned, noise-laden value `8`).
+    *   **Compacted Prompts**: Answered correctly **14/14** times (the model successfully extracted the active value `5` due to the aborted branch being pruned).
+*   **Scope & Limitation**: The other 4 scenarios defined in `scripts/run_answer_quality.py` were never run. Therefore, this finding is a narrow, illustrative data point specifically showing benefits in "stale abandoned-branch value" cases and should not be generalized beyond this case.
+*   **Total Cost**: ~$0.0038 across all 28 calls.
+
 ---
 
 ## 7. Limitations and Future Work
