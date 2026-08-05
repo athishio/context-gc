@@ -20,7 +20,7 @@ def collect_receipts(graph: StateGraph) -> List[Dict]:
 
 
 def get_receipt(graph: StateGraph, node_id: str) -> dict:
-    """Return the original event dictionary for a pruned node ID."""
+    """Return the original event dictionary for a pruned node ID. Raises KeyError if node_id is not in graph.nodes."""
     if node_id not in graph.nodes:
         raise KeyError(f"Unknown node id: {node_id}")
     return graph.nodes[node_id]
