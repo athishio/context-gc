@@ -1,10 +1,7 @@
 # context_gc/dead_branch_sweeper.py
-"""Dead‑branch sweeper – removes abandoned execution branches.
+"""Dead‑branch sweeper – prunes abandoned execution paths.
 
-The sweeper walks the graph **only** along ``sequence`` edges. For every
-``abandon`` event the ``ref_to`` list (node IDs being abandoned) and all of their
-descendants are marked as pruned. Pruned nodes are recorded via
-``graph.mark_pruned`` so that a receipt stub is generated for each.
+Walks sequence edges starting from abandon event targets to prune entire abandoned sub-branches.
 """
 
 from __future__ import annotations
@@ -15,10 +12,7 @@ from .graph import StateGraph
 
 
 def sweep_dead_branches(graph: StateGraph) -> List[str]:
-    """Prune nodes that are abandoned via ``abandon`` events.
-
-    Returns a list of node IDs that were pruned.
-    """
+    """Prune nodes and their descendants targeted by abandon events, returning pruned IDs."""
     to_prune: Set[str] = set()
     # Identify all abandon events and collect their target IDs (list).
     abandon_targets: List[str] = []

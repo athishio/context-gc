@@ -1,17 +1,8 @@
 # context_gc/topo_sampler.py
 """Topological sampler – collapses strongly connected components (cycles).
 
-Cycles are detected with Tarjan's algorithm.  For each SCC containing more than
-one node, a *receipt* node is created.  The receipt ID is a deterministic hash
-derived from the sorted member IDs (SHA‑256, first 12 hex chars).  All internal
-edges of the SCC are removed and a single ``sequence`` edge from the receipt to
-the first node (by timestamp) is added so that downstream processing sees the
-receipt as a replacement for the collapsed sub‑graph.
-
-.. note::
-   Because chronological event ingestion (via ``parent_id`` checks) prevents cycles
-   from forming under normal usage, cycle collapsing acts as defensive infrastructure
-   for out-of-order ingestion, manually altered graphs, or future non-chronological edge types.
+Identifies cycles (strongly connected components) via Tarjan's algorithm and 
+collapses them into a single deterministic cluster receipt node.
 """
 
 from __future__ import annotations
@@ -23,12 +14,7 @@ from .graph import StateGraph
 
 
 def _deterministic_cluster_id(member_ids: List[str]) -> str:
-    """Return a deterministic deterministic ID for a cluster of node IDs.
-
-    The IDs are sorted, joined with a comma, hashed with SHA‑256, and the first
-    12 hexadecimal characters are used.  This guarantees the same input always
-    yields the same cluster ID.
-    """
+    """Return a deterministic cluster ID from sorted member IDs using SHA-256."""
     sorted_ids = sorted(member_ids)
     joined = ",".join(sorted_ids).encode()
     digest = hashlib.sha256(joined).hexdigest()
@@ -36,12 +22,7 @@ def _deterministic_cluster_id(member_ids: List[str]) -> str:
 
 
 def collapse_cycles(graph: StateGraph) -> List[str]:
-    """Detect SCCs, collapse each non‑trivial component, and return receipt IDs.
-
-    The function mutates *graph* in‑place: it adds a ``receipt`` node for each
-    collapsed SCC and removes the original intra‑SCC edges.  Nodes that become
-    part of a collapsed component are marked as pruned via ``graph.mark_pruned``.
-    """
+    """Detect cycles, collapse each component into a cluster receipt, and mark members as pruned."""
     import sys
     old_limit = sys.getrecursionlimit()
     sys.setrecursionlimit(max(old_limit, len(graph.nodes) + 100))

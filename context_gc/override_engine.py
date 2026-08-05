@@ -1,10 +1,8 @@
 # context_gc/override_engine.py
-"""Override engine – marks superseded ``set_var`` events.
+"""Override engine – identifies and prunes superseded ``set_var`` updates.
 
-For each variable key, the most recent ``set_var`` event (by ``timestamp``)
-remains live. All older ``set_var`` events are linked with a ``supersedes``
-edge from the newest node to each older node and are marked ``pruned=True``.
-The function returns the list of pruned node IDs.
+Retains only the latest set_var event for each key (by timestamp) among surviving 
+nodes and marks all preceding writes as pruned.
 """
 
 from __future__ import annotations
@@ -16,13 +14,7 @@ from .graph import StateGraph
 
 
 def apply_overrides(graph: StateGraph) -> List[str]:
-    """Detect and prune superseded ``set_var`` events.
-
-    Returns
-    -------
-    List[str]
-        IDs of nodes that were pruned.
-    """
+    """Detect and prune superseded ``set_var`` events, returning the pruned IDs."""
     # Group ``set_var`` events by their ``key``
     key_to_events: dict[str, List[dict]] = defaultdict(list)
     for node_id, event in graph.nodes.items():

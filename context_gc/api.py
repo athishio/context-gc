@@ -42,14 +42,9 @@ class ContextGC:
             self.graph.add_edge(parent, validated["id"], "sequence")
 
     def compact(self) -> Dict[str, Any]:
-        """Compact the full set of events collected so far.
+        """Runs the full compaction pipeline against all events added so far.
 
-        .. note::
-           This is NOT a true incremental recomputation. It re-runs the full
-           deterministic compaction pipeline (sweep_dead_branches, apply_overrides,
-           deduplicate_tool_calls, collapse_cycles) against the current full set of
-           events on each call. This is correct and stateless but does repeated work
-           on long traces.
+        Note: re-runs from scratch each call, not incremental — see README for details.
         """
         result = compact_events(self.events)
         self.graph = result["graph"]

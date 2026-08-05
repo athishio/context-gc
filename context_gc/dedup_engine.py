@@ -11,16 +11,7 @@ from .graph import StateGraph
 
 
 def deduplicate_tool_calls(graph: StateGraph) -> List[str]:
-    """Detect and prune duplicate tool calls.
-
-    A tool-call is a duplicate if it has the same tool name, same arguments,
-    and same result as an earlier surviving tool-call.
-    
-    Returns
-    -------
-    List[str]
-        IDs of nodes (both tool_calls and tool_results) that were pruned.
-    """
+    """Prunes duplicate tool calls (same tool_name, arguments, and result) by retaining only the earliest."""
     # 1. Map call_id to tool_result nodes (only surviving/not pruned results)
     tool_results: Dict[str, Dict[str, Any]] = {}
     for node_id, node in graph.nodes.items():
