@@ -2,6 +2,10 @@
 
 Deterministic, receipt-preserving context compaction middleware for AI agents with no extra LLM calls.
 
+* **Reduces token cost** by pruning obsolete event paths and redundant actions.
+* **Avoids stale-context confusion** by removing overridden variables and dead-end attempts.
+* **Zero added latency from AI calls** using a fully local, deterministic compaction engine.
+
 ## Description
 
 Context-GC is a framework-agnostic, installable library combining deterministic graph-based pruning with recoverable receipts. While existing tools (such as Self-GC, ClawVM, Cognee, ContextNest, and MemGPT/Letta) split these approaches across research papers, hosted SaaS products, or LLM-based summarization routines, Context-GC ships as a simple, drop-in, zero-dependency Python library designed for developers building stateful agent workflows.
@@ -17,28 +21,10 @@ Context-GC processes execution traces through a linear compilation pipeline, tra
 ### Compaction Pipeline Flow
 
 ```text
-[Raw Event Stream] 
-        │
-        ▼
-   StateGraph (Constructed via parent_id relationships)
-        │
-        ▼
- 1. Dead-Branch Sweeper (DFS recursive pruning of abandoned nodes)
-        │
-        ▼
- 2. Override Engine (Pruning of superseded variable state keys)
-        │
-        ▼
- 3. Deduplication Engine (Pruning of redundant tool-call results)
-        │
-        ▼
- 4. Topological Sampler (Defensive-only collapse of sequence cycles into receipts)
-        │
-        ▼
- 5. Receipt Stub Collection (Deterministic stubs injected inline)
-        │
-        ▼
-[Rendered Prompt Prefix]  <─── (Pruned event payloads recoverable via get_receipt())
+┌───────┐      ┌───────┐      ┌─────────────────────────┐      ┌──────────────┐      ┌───────────────────┐
+│ Trace │ ───► │ Graph │ ───► │    Override Engine +    │ ───► │ Topo Sampler │ ───► │ Compacted Prompt  │
+└───────┘      └───────┘      │   Dead-Branch Sweeper   │      └──────────────┘      │  + Receipt Store  │
+                              └─────────────────────────┘                            └───────────────────┘
 ```
 
 ### Entry Points
