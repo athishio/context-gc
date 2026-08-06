@@ -34,7 +34,7 @@ pytest
 
 ## Event Schema Contract
 
-Context-GC expects events to follow a strict validation schema defined in [context_gc/events.py](file:///e:/Context-GC/context_gc/events.py). Every event is a dictionary containing the following core fields:
+Context-GC expects events to follow a strict validation schema defined in [context_gc/events.py](context_gc/events.py). Every event is a dictionary containing the following core fields:
 * `id` (string, required): A unique identifier for the event.
 * `type` (string, required): One of the five structured types listed below.
 * `timestamp` (integer or float, required): Unix timestamp or sequential counter.
