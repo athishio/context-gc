@@ -1,5 +1,7 @@
 # Context-GC
 
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/athishio/context-gc/blob/main/demo/colab_demo.ipynb)
+
 Deterministic, receipt-preserving context compaction middleware for AI agents with no extra LLM calls.
 
 * **Reduces token cost** by pruning obsolete event paths and redundant actions.
