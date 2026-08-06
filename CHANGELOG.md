@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.1] - 2026-08-06
+
+### Changed
+- **Docs**: Added methodology caveat for the decision probe's exact-substring-matching limitation; corrected average latency figure for `ai_summarize_recursive` on long traces to exclude a rate-limit retry wait.
+
 ## [0.1.0] - 2026-07-31
 
 ### Added
