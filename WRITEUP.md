@@ -156,6 +156,10 @@ Simulates a support agent processing a refund ticket.
 
 ## 6. Benchmark Results
 
+### Methodology Note: Exact Substring Matching
+> [!NOTE]
+> The decision and recall probes check for exact substring survival against the original event text. This structurally favors methods that preserve verbatim text (`truncate_by_event_count`, `truncate_by_token_count`, `context_gc_pipeline`) over methods that paraphrase (`ai_summarize_single`, `ai_summarize_recursive`) — a correctly-summarized, semantically accurate paraphrase can score 0% on this probe even when it retains the right information in different words. We report probe scores as-is because they're deterministic and reproducible, but this benchmark measures literal information survival, not downstream answer correctness. For a test of actual downstream answer correctness (an LLM answering a real question from compacted vs. full context), see the Scenario 5 stress-test result in the [Supplementary Finding: Live Answer-Quality Check](#supplementary-finding-live-answer-quality-check) section.
+
 To move beyond a single hand-tuned demo, Context-GC was benchmarked
 against three alternatives — full history (no compaction), naive
 truncation, and AI-driven summarization — across 9 fixtures (3 agent

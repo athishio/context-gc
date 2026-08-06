@@ -22,6 +22,10 @@ This report presents a comparative evaluation of context compaction methods for 
 
 ## Comparative Benchmark Tables
 
+### Methodology Note: Exact Substring Matching
+> [!NOTE]
+> The decision and recall probes check for exact substring survival against the original event text. This structurally favors methods that preserve verbatim text (`truncate_by_event_count`, `truncate_by_token_count`, `context_gc_pipeline`) over methods that paraphrase (`ai_summarize_single`, `ai_summarize_recursive`) — a correctly-summarized, semantically accurate paraphrase can score 0% on this probe even when it retains the right information in different words. We report probe scores as-is because they're deterministic and reproducible, but this benchmark measures literal information survival, not downstream answer correctness. For a test of actual downstream answer correctness (an LLM answering a real question from compacted vs. full context), see the Scenario 5 stress-test result in the [Supplementary Finding: Live Answer-Quality Check](file:///e:/Context-GC/WRITEUP.md#supplementary-finding-live-answer-quality-check) section of `WRITEUP.md`.
+
 ### Comparative Benchmark — SHORT Traces
 | Method | Avg Tokens | Avg Latency (s) | Cost ($) | Recall Acc. | Artifact Acc. | Continuation Acc. | Decision Acc. | Deterministic |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -54,6 +58,8 @@ This report presents a comparative evaluation of context compaction methods for 
 | truncate_by_token_count        | 210.7      | 0.0001          | $0.000000 | 0.0%        | 0.0%          | 0.0%              | 0.0%          | n/a           |
 | ai_summarize_single (flash)    | 243.4      | 8.2741          | $0.000171 | 100.0%      | 0.0%          | 100.0%            | 0.0%          | no            |
 | ai_summarize_single (pro)      | not run — Pro tier unavailable (0 req/day quota) | | | | | | | |
-| ai_summarize_recursive (flash) | 219.2      | 50.9544         | $0.000199 | 100.0%      | 0.0%          | 100.0%            | 0.0%          | no            |
+| ai_summarize_recursive (flash) | 219.2      | 42.6211*        | $0.000199 | 100.0%      | 0.0%          | 100.0%            | 0.0%          | no            |
 | ai_summarize_recursive (pro)   | not run — Pro tier unavailable (0 req/day quota) | | | | | | | |
 | context_gc_pipeline            | 1028.3     | 0.0028          | $0.000000 | 100.0%      | 100.0%        | 100.0%            | 100.0%        | yes           |
+
+*\*One run included a 75s API rate-limit retry wait; latency figures exclude this wait time to reflect model response time rather than our own quota constraints. (Including the retry wait, average latency is 50.9544s).*
