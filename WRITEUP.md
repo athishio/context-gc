@@ -219,3 +219,24 @@ While Context-GC provides a powerful, deterministic alternative to lossy summari
 1.  **Structured Events Only**: Compaction relies entirely on typed event metadata. If an agent records its history as a single freeform text log, Context-GC cannot reconstruct the dependency graph.
 2.  **No Incremental Recomputation**: Calling `.compact()` rebuilds the entire state graph from scratch. For very long traces, this incurs linear processing overhead on each call. Future versions will implement true incremental compilation where updates are applied to the active graph in-place.
 3.  **DAG Invariant**: The topological sampler requires sequence edges to be acyclic. While cycle collapse handles cycles, any sequence relationships that cannot be resolved topologically will block prompt rendering.
+
+---
+
+## 8. Prior Art and Comparison
+
+Managing long-context window limits and token costs in agentic systems is an active engineering and research domain. Existing approaches include:
+
+*   **Content-Level Compression (Headroom)**: Compresses the content of individual messages or tool outputs as they arrive (routing JSON, logs, or text to specialized per-type compressors, including the trained ML-based compressor *Kompress*) while leaving the historical conversation structure untouched to maximize provider KV-cache hits.
+*   **OS-Inspired Memory Architectures**: Frameworks (such as MemGPT/Letta) that treat context management analogously to operating system paging, moving data between virtual memory (context) and disk (archival storage).
+*   **Graph-based Memory Systems & Knowledge Graphs**: Tools (like Cognee) that structure agent experiences as entity-relation networks rather than linear logs.
+*   **Hosted Memory & Vector Databases**: SaaS platforms and databases that offer retrieval-augmented generation (RAG) and search workflows over raw text memories.
+*   **AI-Driven Summarization**: Naive LLM calls that periodically summarize history logs into shorter paragraphs.
+
+### Headroom vs. Context-GC
+
+A primary architectural distinction exists between **Headroom** and **Context-GC**:
+*   **Headroom** compresses the *content* of individual messages/tool-outputs as they arrive—routing JSON/code/logs/text to per-type compressors (one of which, *Kompress*, uses a trained ML model, not pure determinism), and explicitly leaves prior conversation history untouched to preserve provider KV-cache hits. Headroom decides what to keep small on the way in.
+*   **Context-GC** solves a different layer: given an agent's already-accumulated structured event history, it identifies which parts are now dead (superseded, abandoned, or cyclical) and structurally removes them. Context-GC decides what should still exist at all once it is already there.
+
+The two approaches are complementary rather than competing: Headroom shrinks new incoming tool outputs, while Context-GC prunes stale state from history. Furthermore, Context-GC's entire pipeline has zero ML/AI models anywhere, including in the pruning logic itself, whereas Headroom's is deterministic for some content types but uses a trained model for general text.
+

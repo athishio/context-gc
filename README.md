@@ -10,7 +10,7 @@ Deterministic, receipt-preserving context compaction middleware for AI agents wi
 
 ## Description
 
-Context-GC is a framework-agnostic, installable library combining deterministic graph-based pruning with recoverable receipts. While existing tools (such as Self-GC, ClawVM, Cognee, ContextNest, and MemGPT/Letta) split these approaches across research papers, hosted SaaS products, or LLM-based summarization routines, Context-GC ships as a simple, drop-in, zero-dependency Python library designed for developers building stateful agent workflows.
+Context-GC is a framework-agnostic, installable library combining deterministic graph-based pruning with recoverable receipts. While existing tools (such as Self-GC, ClawVM, Cognee, ContextNest, Headroom, and MemGPT/Letta) split these approaches across research papers, hosted SaaS products, client-side compressors, or LLM-based summarization routines, Context-GC ships as a simple, drop-in, zero-dependency Python library designed for developers building stateful agent workflows.
 
 By modeling the agent's interaction history (execution traces) as a directed multigraph, Context-GC identifies and removes obsolete or superseded steps, dead execution branches, and cycles. When elements are pruned, Context-GC leaves behind lightweight, deterministic *receipt stubs* inline, allowing agents to preserve awareness of their history. Furthermore, the complete original content of any pruned step remains fully recoverable on-demand.
 
@@ -209,10 +209,19 @@ Context-GC validates incoming events according to five structured types defined 
 ## Prior Art / Related Work
 
 The problem of managing long-context window limits and cost in agentic systems is an active area of research and engineering. Related approaches include:
-*   **Graph-based Memory Systems & Knowledge Graphs**: Tools that structure agent experiences as entity-relation networks rather than linear logs.
+*   **Content-Level Compression (Headroom)**: Compresses the content of individual messages or tool outputs as they arrive (routing JSON, logs, or text to specialized per-type compressors, including the trained ML-based compressor *Kompress*) while leaving the historical conversation structure untouched to maximize provider KV-cache hits.
+*   **Graph-based Memory Systems & Knowledge Graphs**: Tools (like Cognee) that structure agent experiences as entity-relation networks rather than linear logs.
 *   **OS-Inspired Memory Architectures**: Frameworks (such as MemGPT/Letta) that treat context management analogously to operating system paging, moving data between virtual memory and disk.
 *   **Hosted Memory & Vector Databases**: SaaS platforms and databases that offer retrieval-augmented generation (RAG) and search workflows over raw text memories.
 *   **AI-Driven Summarization**: Naive LLM calls that periodically summarize history logs into shorter paragraphs.
+
+### Headroom vs. Context-GC
+
+A primary architectural distinction exists between **Headroom** and **Context-GC**:
+*   **Headroom** compresses the *content* of individual messages/tool-outputs as they arrive—routing JSON/code/logs/text to per-type compressors (one of which, *Kompress*, uses a trained ML model, not pure determinism), and explicitly leaves prior conversation history untouched to preserve provider KV-cache hits. Headroom decides what to keep small on the way in.
+*   **Context-GC** solves a different layer: given an agent's already-accumulated structured event history, it identifies which parts are now dead (superseded, abandoned, or cyclical) and structurally removes them. Context-GC decides what should still exist at all once it is already there.
+
+The two approaches are complementary rather than competing: Headroom shrinks new incoming tool outputs, while Context-GC prunes stale state from history. Furthermore, Context-GC's entire pipeline has zero ML/AI models anywhere, including in the pruning logic itself, whereas Headroom's is deterministic for some content types but uses a trained model for general text.
 
 ### Context-GC's Niche
 
