@@ -206,6 +206,34 @@ Context-GC validates incoming events according to five structured types defined 
 
 *All events support an optional `parent_id` (string) field to map the sequential execution path.*
 
+### Coding Agent Event Types (Schema v0.3.0+)
+
+*   **`file_read`**: Reads a file payload.
+    *   *Required fields*: `id`, `type`, `timestamp`, `path` (non-empty string)
+*   **`file_edit`**: Edits a file.
+    *   *Required fields*: `id`, `type`, `timestamp`, `path` (non-empty string), `diff_hash` (non-empty string hash of the change)
+*   **`command_run`**: Runs a terminal command.
+    *   *Required fields*: `id`, `type`, `timestamp`, `command` (non-empty string), `exit_code` (integer)
+*   **`test_run`**: Runs test cases.
+    *   *Required fields*: `id`, `type`, `timestamp`, `test_names` (list of strings), `exit_code` (integer), `passed_count` (integer), `failed_count` (integer)
+*   **`build_run`**: Runs a build task.
+    *   *Required fields*: `id`, `type`, `timestamp`, `exit_code` (integer)
+*   **`git_diff`**: Shows repository diff.
+    *   *Required fields*: `id`, `type`, `timestamp`, `diff_hash` (non-empty string), `files_changed` (list of strings)
+*   **`git_commit`**: Creates a git commit.
+    *   *Required fields*: `id`, `type`, `timestamp`, `commit_hash` (non-empty string), `message` (non-empty string)
+*   **`error`**: Signals an error execution.
+    *   *Required fields*: `id`, `type`, `timestamp`, `message` (non-empty string)
+    *   *Optional field*: `related_to` (non-empty string ID of the causing event, or None)
+*   **`artifact_created`**: Generates a file artifact.
+    *   *Required fields*: `id`, `type`, `timestamp`, `artifact_type` (non-empty string), `path` (non-empty string)
+*   **`requirement`**: Defines a system requirement.
+    *   *Required fields*: `id`, `type`, `timestamp`, `content` (non-empty string)
+*   **`constraint`**: Defines a system constraint.
+    *   *Required fields*: `id`, `type`, `timestamp`, `content` (non-empty string)
+*   **`verification`**: Asserts a verification check.
+    *   *Required fields*: `id`, `type`, `timestamp`, `content` (non-empty string), `passed` (boolean)
+
 ---
 
 ## Prior Art / Related Work
@@ -311,3 +339,4 @@ truly discarded, and every pruned event remains recoverable via
 - **DAG Assumption**: The state graph must resolve to a Directed Acyclic Graph (DAG) after the cycle collapsing stage has executed to allow topological rendering.
 - **API Compaction Performance**: Incremental compaction is not fully incremental under the hood; it re-runs the full compaction pipeline on each `.compact()` call. For very long traces, this means repeated execution overhead.
 - **Retain Until Expiration**: The `retain_until` event metadata field currently has no dynamic expiration mechanism (e.g. tracking when a task or session actually ends). In Phase 1, it behaves identically to permanent protection.
+- **Deduplication Scope**: Deduplication is intentionally scoped to `tool_call`/`tool_result` pairs only. Repeated `file_read`, `test_run`, `build_run`, or similar coding-agent events are NOT deduplicated, even if identical — re-reading a file or re-running tests after a change represents meaningful re-verification, not redundancy, and collapsing them would remove genuine reasoning-trace context.
