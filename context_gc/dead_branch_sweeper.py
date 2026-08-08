@@ -43,10 +43,15 @@ def sweep_dead_branches(graph: StateGraph) -> List[str]:
     pruned_ids: List[str] = []
     for node_id in to_prune:
         trigger_id = descendant_reasons[node_id]
-        reason = f"abandoned by {trigger_id}"
+        event = graph.nodes.get(node_id)
+        
+        if event and event.get("type") == "abandon":
+            reason = "abandon event pruned alongside its own target branch"
+        else:
+            reason = f"abandoned by {trigger_id}"
+            
         graph.prune_reasons[node_id] = reason
 
-        event = graph.nodes.get(node_id)
         if event and is_protected(event):
             graph.protected.add(node_id)
             if event.get("importance") == "critical":

@@ -28,3 +28,8 @@ def test_sweep_dead_branches():
     assert "e1" not in graph.pruned
     assert "e4" not in graph.pruned
     assert "e5" not in graph.pruned
+
+    # Assert reasons
+    assert graph.prune_reasons["e2"] == "abandoned by ab1"
+    assert graph.prune_reasons["e3"] == "abandoned by ab1"
+    assert graph.prune_reasons["ab1"] == "abandon event pruned alongside its own target branch"
