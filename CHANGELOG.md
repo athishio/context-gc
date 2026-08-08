@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.2.1] - 2026-08-08
+
+### Changed
+- **Benchmark Correction**: Removed synthetic cross-edge injection from the comparative benchmark runner for `context_gc_pipeline`, scoring all methods on natural traces. Corrected the medium-tier token count average to **299.0** tokens.
+- **Cycle Collapse Note**: Added methodology notes indicating cycle collapse is verified separately in unit tests (`tests/test_topo_sampler.py`).
+- **Docs**: Changed relative markdown links in `README.md` and `benchmark_report.md` to absolute GitHub paths to prevent broken links when rendered on PyPI.
+
 ## [0.2.0] - 2026-08-08
 
 ### Added
