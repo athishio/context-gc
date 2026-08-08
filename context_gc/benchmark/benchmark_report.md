@@ -26,6 +26,11 @@ This report presents a comparative evaluation of context compaction methods for 
 > [!NOTE]
 > The decision probe checks for exact substring survival against the original event text. This structurally favors methods that preserve verbatim text (`truncate_by_event_count`, `truncate_by_token_count`, `context_gc_pipeline`) over methods that paraphrase (`ai_summarize_single`, `ai_summarize_recursive`) — a correctly-summarized, semantically accurate paraphrase can score 0% on this probe even when it retains the right information in different words. We report probe scores as-is because they're deterministic and reproducible, but this benchmark measures literal information survival, not downstream answer correctness. For a test of actual downstream answer correctness (an LLM answering a real question from compacted vs. full context), see the Scenario 5 stress-test result in the [Supplementary Finding: Live Answer-Quality Check](../../WRITEUP.md#supplementary-finding-live-answer-quality-check) section of `WRITEUP.md`. We have not separately investigated the low artifact-accuracy scores for AI summarization on long traces, so this caveat does not extend to that metric either — it may reflect a genuine limitation of summarization, a different measurement artifact, or something else; it is simply unexamined.
 
+### Methodology Note: Cycle Collapse & Edge Injection in Medium Traces
+> [!NOTE]
+> The medium-tier fixtures had synthetic cross-edges injected to exercise the topological sampler's cycle-collapse stage during benchmarking. Since cycles cannot form through normal `add_event()` usage, this means the reported `context_gc_pipeline` token counts for medium traces reflect a cycle-collapsed scenario that competing methods (which operate on a flat timeline without a graph representation) were not evaluated against—competing methods were scored on the natural, un-injected traces. Without cycle collapse, the natural trace token average for `context_gc_pipeline` on medium traces is 299.0 tokens (compared to the reported 277.7 tokens with cycle collapse).
+
+
 ### Comparative Benchmark — SHORT Traces
 | Method | Avg Tokens | Avg Latency (s) | Cost ($) | Recall Acc. | Artifact Acc. | Continuation Acc. | Decision Acc. | Deterministic |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |

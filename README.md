@@ -301,6 +301,7 @@ truly discarded, and every pruned event remains recoverable via
   medium traces but recovered to 100% on long traces. No clear
   architectural explanation was found; this is reported as-is rather
   than smoothed over.
+- **Cycle Collapse & Edge Injection in Medium Traces**: The medium-tier fixtures had synthetic cross-edges injected to exercise the topological sampler's cycle-collapse stage during benchmarking. Since cycles cannot form through normal `add_event()` usage, this means the reported `context_gc_pipeline` token counts for medium traces reflect a cycle-collapsed scenario that competing methods (which do not build state graphs) were not evaluated against—competing methods were scored on the natural, un-injected traces. Without cycle collapse, the natural trace token average for `context_gc_pipeline` on medium traces is 299.0 tokens (compared to the reported 277.7 tokens with cycle collapse).
 
 ---
 
