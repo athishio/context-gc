@@ -82,6 +82,7 @@ def collapse_cycles(graph: StateGraph) -> List[str]:
         graph.add_edge(receipt_id, earliest, "sequence")
         # Mark all original members as pruned and clean reverse lookup cache
         for nid in component:
+            graph.prune_reasons[nid] = "collapsed into cycle cluster"
             graph.mark_pruned(nid)
             if nid in graph._rev:
                 del graph._rev[nid]

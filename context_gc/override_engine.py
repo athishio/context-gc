@@ -11,6 +11,7 @@ from collections import defaultdict
 from typing import List
 
 from .graph import StateGraph
+from .retention_policy import is_protected
 
 
 def apply_overrides(graph: StateGraph) -> List[str]:
@@ -34,7 +35,19 @@ def apply_overrides(graph: StateGraph) -> List[str]:
             older_id = older["id"]
             # Add supersedes edge from newest -> older
             graph.add_edge(newest_id, older_id, "supersedes")
-            # Mark older as pruned
-            graph.mark_pruned(older_id)
-            pruned_ids.append(older_id)
+            
+            # Store what would have pruned it
+            reason = f"superseded by {newest_id}"
+            graph.prune_reasons[older_id] = reason
+
+            if is_protected(older):
+                graph.protected.add(older_id)
+                if older.get("importance") == "critical":
+                    graph.protected_reasons[older_id] = "importance=critical"
+                elif older.get("retain_until") in {"task_end", "session_end"}:
+                    graph.protected_reasons[older_id] = f"retain_until={older['retain_until']}"
+            else:
+                # Mark older as pruned
+                graph.mark_pruned(older_id)
+                pruned_ids.append(older_id)
     return pruned_ids

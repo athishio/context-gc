@@ -151,6 +151,7 @@ def compact_events(events: List[Dict[str, Any]]) -> Dict[str, Any]:
         "tokens_after": tokens_after,
         "receipts": receipts,
         "pruned_ids": pruned_ids,
+        "protected_ids": sorted(list(graph.protected)),
         "compact_events": live_events,
         "graph": graph,
     }

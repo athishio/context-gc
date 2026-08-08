@@ -307,3 +307,4 @@ truly discarded, and every pruned event remains recoverable via
 - **Structured Events Only**: Compaction operates purely on typed, structured event inputs. Context-GC does not parse freeform natural-language prose or try to semantic-check contradictions in plain text.
 - **DAG Assumption**: The state graph must resolve to a Directed Acyclic Graph (DAG) after the cycle collapsing stage has executed to allow topological rendering.
 - **API Compaction Performance**: Incremental compaction is not fully incremental under the hood; it re-runs the full compaction pipeline on each `.compact()` call. For very long traces, this means repeated execution overhead.
+- **Retain Until Expiration**: The `retain_until` event metadata field currently has no dynamic expiration mechanism (e.g. tracking when a task or session actually ends). In Phase 1, it behaves identically to permanent protection.

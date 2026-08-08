@@ -21,6 +21,9 @@ dependencies = []
 Homepage = "https://github.com/athishio/context-gc"
 Issues = "https://github.com/athishio/context-gc/issues"
 
+[project.scripts]
+context-gc = "context_gc.cli:main"
+
 [project.optional-dependencies]
 test = [
     "pytest>=7.0.0",

@@ -64,6 +64,15 @@ def validate_event(event: Dict[str, Any]) -> Dict[str, Any]:
         _require(isinstance(event["ref_to"], list) and all(isinstance(i, str) for i in event["ref_to"]), "'ref_to' must be a list of strings")
     if "content" in event:
         _require(event["content"] is None or isinstance(event["content"], str), "'content' must be str or None")
+    
+    # Validation for new Phase 1 event metadata
+    if "importance" in event:
+        _require(event["importance"] in {"critical", "task", "session", "temporary", "debug"}, "'importance' must be one of: critical, task, session, temporary, debug")
+    if "tags" in event:
+        _require(isinstance(event["tags"], list) and all(isinstance(t, str) for t in event["tags"]), "'tags' must be a list of strings")
+    if "retain_until" in event:
+        _require(event["retain_until"] in {"task_end", "session_end", None}, "'retain_until' must be one of: task_end, session_end, None")
+
     # No further validation for value/arguments/result – they can be any JSON‑serialisable type.
     return event
 

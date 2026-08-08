@@ -8,6 +8,7 @@ from collections import defaultdict
 from typing import List, Dict, Any
 
 from .graph import StateGraph
+from .retention_policy import is_protected
 
 
 def deduplicate_tool_calls(graph: StateGraph) -> List[str]:
@@ -55,17 +56,39 @@ def deduplicate_tool_calls(graph: StateGraph) -> List[str]:
 
         for dup_tc in tcs[1:]:
             dup_tc_id = dup_tc["id"]
-            dup_tr_id = tool_results[dup_tc_id]["id"]
+            dup_tr = tool_results[dup_tc_id]
+            dup_tr_id = dup_tr["id"]
 
             # Add supersedes edges
             graph.add_edge(surviving_tc_id, dup_tc_id, "supersedes")
             graph.add_edge(surviving_tr_id, dup_tr_id, "supersedes")
 
-            # Mark duplicate nodes as pruned
-            graph.mark_pruned(dup_tc_id)
-            graph.mark_pruned(dup_tr_id)
+            # Track reasons
+            tc_reason = f"duplicate of {surviving_tc_id}"
+            tr_reason = f"duplicate of {surviving_tr_id}"
+            graph.prune_reasons[dup_tc_id] = tc_reason
+            graph.prune_reasons[dup_tr_id] = tr_reason
 
-            pruned_ids.append(dup_tc_id)
-            pruned_ids.append(dup_tr_id)
+            # Handle duplicate tool call
+            if is_protected(dup_tc):
+                graph.protected.add(dup_tc_id)
+                if dup_tc.get("importance") == "critical":
+                    graph.protected_reasons[dup_tc_id] = "importance=critical"
+                elif dup_tc.get("retain_until") in {"task_end", "session_end"}:
+                    graph.protected_reasons[dup_tc_id] = f"retain_until={dup_tc['retain_until']}"
+            else:
+                graph.mark_pruned(dup_tc_id)
+                pruned_ids.append(dup_tc_id)
+
+            # Handle duplicate tool result
+            if is_protected(dup_tr):
+                graph.protected.add(dup_tr_id)
+                if dup_tr.get("importance") == "critical":
+                    graph.protected_reasons[dup_tr_id] = "importance=critical"
+                elif dup_tr.get("retain_until") in {"task_end", "session_end"}:
+                    graph.protected_reasons[dup_tr_id] = f"retain_until={dup_tr['retain_until']}"
+            else:
+                graph.mark_pruned(dup_tr_id)
+                pruned_ids.append(dup_tr_id)
 
     return pruned_ids

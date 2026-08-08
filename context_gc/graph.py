@@ -34,6 +34,9 @@ class StateGraph:
         self._rev: Dict[str, List[Tuple[str, str]]] = defaultdict(list)  # dst -> [(src, type)]
         self._forward: Dict[str, List[Tuple[str, str]]] = defaultdict(list)  # src -> [(dst, type)]
         self.pruned: Set[str] = set()
+        self.protected: Set[str] = set()
+        self.prune_reasons: Dict[str, str] = {}
+        self.protected_reasons: Dict[str, str] = {}
         self.receipts: Dict[str, dict] = {}
 
     # ---------------------------------------------------------------------
