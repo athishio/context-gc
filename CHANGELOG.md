@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.3.0] - 2026-08-08
+
+### Added
+- **Coding Agent Event Schema**: Added 12 new coding-specific event types: `file_read`, `file_edit`, `command_run`, `test_run`, `build_run`, `git_diff`, `git_commit`, `error`, `artifact_created`, `requirement`, `constraint`, and `verification`. Enforced non-empty validations on string fields.
+- **Coding Prompt Rendering**: Added human-readable single-line formats for the new event types. Implemented test names list truncation formatting for `test_run` (>3 tests).
+- **CLIexplain details**: Extended `explain` subcommand to output the target details of `error` events' `related_to` field, with safe lookup tolerance for missing/pruned IDs.
+
 ## [0.2.1] - 2026-08-08
 
 ### Changed
