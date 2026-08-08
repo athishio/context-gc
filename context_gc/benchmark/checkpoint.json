@@ -1275,8 +1275,8 @@
       "method": "context_gc_pipeline",
       "tier": "n/a",
       "run": 1,
-      "tokens": 263,
-      "latency": 0.0019145000260323286,
+      "tokens": 278,
+      "latency": 0.0016233000060310587,
       "cost": 0.0,
       "probes": {
         "recall": true,
@@ -1293,8 +1293,8 @@
       "method": "context_gc_pipeline",
       "tier": "n/a",
       "run": 1,
-      "tokens": 288,
-      "latency": 0.0034546999959275126,
+      "tokens": 314,
+      "latency": 0.0021020000058342703,
       "cost": 0.0,
       "probes": {
         "recall": true,
@@ -1311,8 +1311,8 @@
       "method": "context_gc_pipeline",
       "tier": "n/a",
       "run": 1,
-      "tokens": 282,
-      "latency": 0.0018884999444708228,
+      "tokens": 305,
+      "latency": 0.0013165999989723787,
       "cost": 0.0,
       "probes": {
         "recall": true,
@@ -1322,6 +1322,24 @@
         "cycle_collapse": true
       },
       "determinism": "yes"
+    },
+    {
+      "fixture": "customer_support_long.json",
+      "length": "long",
+      "method": "ai_summarize_recursive",
+      "tier": "gemini-3.6-flash-3",
+      "run": 3,
+      "tokens": 283,
+      "latency": 36.10164879999502,
+      "cost": 0.000234975,
+      "probes": {
+        "recall": true,
+        "artifact": false,
+        "continuation": true,
+        "decision": false
+      },
+      "determinism": "no",
+      "timestamp": "2026-08-08T13:33:20.964431"
     }
   ]
 }

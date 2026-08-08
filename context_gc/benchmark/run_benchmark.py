@@ -264,21 +264,7 @@ def run_benchmark(simulate: bool = False):
                 gc_client = ContextGC()
                 for ev in clean_events:
                     gc_client.add_event(ev)
-                
-                import context_gc.compactor
-                orig_build = context_gc.compactor._build_state_graph
-                def mock_build(evs):
-                    g = orig_build(evs)
-                    for src, dst in injected_edges:
-                        g.add_edge(src, dst, "sequence")
-                    return g
-                
-                context_gc.compactor._build_state_graph = mock_build
-                try:
-                    res = gc_client.compact()
-                finally:
-                    context_gc.compactor._build_state_graph = orig_build
-                    
+                res = gc_client.compact()
                 el = time.perf_counter() - st
                 return res["prompt"], res["tokens_after"], el, gc_client.graph
 
@@ -286,16 +272,7 @@ def run_benchmark(simulate: bool = False):
             p2, t2, l2, g2 = run_pipeline()
             det_check = "yes" if p1 == p2 else "no"
             probe_res = evaluate_probes(p1, probes, graph=g1)
-            
-            if injected_edges:
-                cycle_ok = False
-                for r_id in g1.nodes:
-                    if r_id.startswith("cluster_"):
-                        cycle_ok = True
-                        break
-                probe_res["cycle_collapse"] = cycle_ok
-            else:
-                probe_res["cycle_collapse"] = True
+            probe_res["cycle_collapse"] = True
 
             completed.append({
                 "fixture": filename,

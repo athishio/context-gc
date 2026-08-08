@@ -254,7 +254,7 @@ anything that mattered.
 | Medium | truncate_by_event_count | 133.3 | 0.0% | 100% | 0.0% | 0.0% | n/a |
 | Medium | ai_summarize_single | 146.7 | 66.7% | 88.9% | 100% | 0.0% | No |
 | Medium | ai_summarize_recursive | 131.0 | 0.0% | 66.7% | 100% | 0.0% | No |
-| Medium | **context_gc_pipeline** | **277.7** | **100%** | **100%** | **100%** | **100%** | **Yes** |
+| Medium | **context_gc_pipeline** | **299.0** | **100%** | **100%** | **100%** | **100%** | **Yes** |
 | Long | full_history | 1301.0 | 100% | 100% | 100% | 100% | n/a |
 | Long | truncate_by_event_count | 104.3 | 0.0% | 0.0% | 0.0% | 0.0% | n/a |
 | Long | ai_summarize_single | 243.4 | 100% | 0.0% | 100% | 0.0% | No |
@@ -301,7 +301,7 @@ truly discarded, and every pruned event remains recoverable via
   medium traces but recovered to 100% on long traces. No clear
   architectural explanation was found; this is reported as-is rather
   than smoothed over.
-- **Cycle Collapse & Edge Injection in Medium Traces**: The medium-tier fixtures had synthetic cross-edges injected to exercise the topological sampler's cycle-collapse stage during benchmarking. Since cycles cannot form through normal `add_event()` usage, this means the reported `context_gc_pipeline` token counts for medium traces reflect a cycle-collapsed scenario that competing methods (which do not build state graphs) were not evaluated against—competing methods were scored on the natural, un-injected traces. Without cycle collapse, the natural trace token average for `context_gc_pipeline` on medium traces is 299.0 tokens (compared to the reported 277.7 tokens with cycle collapse).
+- **Cycle Collapse Verification**: Cycle-collapsing behavior (defensive graph loop collapsing) is verified separately under synthetic cyclic traces in [`tests/test_topo_sampler.py`](file:///e:/Context-GC/tests/test_topo_sampler.py). All comparative benchmark numbers are scored against natural, un-injected event traces.
 
 ---
 
