@@ -35,6 +35,47 @@ def _render_event(event: Dict[str, Any]) -> str:
     if etype == "receipt":
         # Simple stub representation – can be enriched later
         return f"[RECEIPT {event.get('id')}]"
+    
+    # Coding agent event types
+    if etype == "file_read":
+        return f"READ {event.get('path')}"
+    if etype == "file_edit":
+        dh = event.get('diff_hash', '')
+        return f"EDIT {event.get('path')} (diff {dh[:8]})"
+    if etype == "command_run":
+        return f"RUN {event.get('command')} -> exit {event.get('exit_code')}"
+    if etype == "test_run":
+        names = event.get('test_names', [])
+        if len(names) > 3:
+            names_str = ", ".join(names[:3]) + f", +{len(names) - 3} more"
+        else:
+            names_str = ", ".join(names)
+        return f"TEST {names_str} — {event.get('passed_count')} passed, {event.get('failed_count')} failed"
+    if etype == "build_run":
+        return f"BUILD -> exit {event.get('exit_code')}"
+    if etype == "git_diff":
+        dh = event.get('diff_hash', '')
+        files = ", ".join(event.get('files_changed', []))
+        return f"DIFF (diff {dh[:8]}) on {files}"
+    if etype == "git_commit":
+        ch = event.get('commit_hash', '')
+        return f"COMMIT {ch[:8]}: {event.get('message')}"
+    if etype == "error":
+        msg = f"ERROR: {event.get('message')}"
+        rel = event.get('related_to')
+        if rel:
+            msg += f" (related to {rel})"
+        return msg
+    if etype == "artifact_created":
+        return f"ARTIFACT {event.get('artifact_type')} created at {event.get('path')}"
+    if etype == "requirement":
+        return f"REQUIREMENT: {event.get('content')}"
+    if etype == "constraint":
+        return f"CONSTRAINT: {event.get('content')}"
+    if etype == "verification":
+        passed_str = "passed" if event.get('passed') else "failed"
+        return f"VERIFICATION: {event.get('content')} — {passed_str}"
+
     # ``abandon`` events are not rendered in the final prompt
     return ""
 
