@@ -1,0 +1,134 @@
+[
+  {
+    "id": "abandoned_var",
+    "type": "set_var",
+    "timestamp": 990,
+    "parent_id": null,
+    "key": "x",
+    "value": 1
+  },
+  {
+    "id": "e01",
+    "type": "requirement",
+    "timestamp": 1000,
+    "parent_id": "abandoned_var",
+    "content": "Implement feature X"
+  },
+  {
+    "id": "e02",
+    "type": "constraint",
+    "timestamp": 1010,
+    "parent_id": "e01",
+    "content": "Do not use external dependencies"
+  },
+  {
+    "id": "e03",
+    "type": "decision",
+    "timestamp": 1020,
+    "parent_id": "e02",
+    "content": "Start by reading src/main.py"
+  },
+  {
+    "id": "e04",
+    "type": "file_read",
+    "timestamp": 1030,
+    "parent_id": "e03",
+    "path": "src/main.py"
+  },
+  {
+    "id": "e05",
+    "type": "file_edit",
+    "timestamp": 1040,
+    "parent_id": "e04",
+    "path": "src/main.py",
+    "diff_hash": "a1b2c3d4"
+  },
+  {
+    "id": "e06",
+    "type": "build_run",
+    "timestamp": 1050,
+    "parent_id": "e05",
+    "exit_code": 0
+  },
+  {
+    "id": "e07",
+    "type": "command_run",
+    "timestamp": 1060,
+    "parent_id": "e06",
+    "command": "pytest -v",
+    "exit_code": 1
+  },
+  {
+    "id": "e08",
+    "type": "error",
+    "timestamp": 1070,
+    "parent_id": "e07",
+    "message": "test_failure: test_main failed",
+    "related_to": "e07"
+  },
+  {
+    "id": "e09",
+    "type": "file_edit",
+    "timestamp": 1080,
+    "parent_id": "e08",
+    "path": "src/main.py",
+    "diff_hash": "e5f6g7h8"
+  },
+  {
+    "id": "e10",
+    "type": "test_run",
+    "timestamp": 1090,
+    "parent_id": "e09",
+    "test_names": [
+      "test_first",
+      "test_second",
+      "test_third",
+      "test_fourth"
+    ],
+    "exit_code": 0,
+    "passed_count": 4,
+    "failed_count": 0
+  },
+  {
+    "id": "e11",
+    "type": "verification",
+    "timestamp": 1100,
+    "parent_id": "e10",
+    "content": "All tests pass successfully",
+    "passed": true
+  },
+  {
+    "id": "e12",
+    "type": "git_diff",
+    "timestamp": 1110,
+    "parent_id": "e11",
+    "diff_hash": "f9e8d7c6",
+    "files_changed": [
+      "src/main.py"
+    ]
+  },
+  {
+    "id": "e13",
+    "type": "git_commit",
+    "timestamp": 1120,
+    "parent_id": "e12",
+    "commit_hash": "c0ffee11",
+    "message": "feat: add feature X"
+  },
+  {
+    "id": "e14",
+    "type": "error",
+    "timestamp": 1130,
+    "parent_id": "e13",
+    "message": "dangling error reference test",
+    "related_to": "e99"
+  },
+  {
+    "id": "overwriting_var",
+    "type": "set_var",
+    "timestamp": 1140,
+    "parent_id": "e14",
+    "key": "x",
+    "value": 2
+  }
+]

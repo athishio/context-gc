@@ -103,6 +103,14 @@ def main():
         event = graph.nodes[node_id]
         print(json.dumps(event, indent=2))
         
+        if event.get("type") == "error" and event.get("related_to"):
+            rel_id = event["related_to"]
+            if rel_id in graph.nodes:
+                rel_ev = graph.nodes[rel_id]
+                print(f"Related to: {rel_ev.get('type')} event (ID: {rel_id})")
+            else:
+                print(f"Related to: unknown event (ID: {rel_id})")
+        
         if node_id in graph.pruned:
             print("Status: pruned")
             print(f"Reason: {graph.prune_reasons.get(node_id, 'unknown')}")
