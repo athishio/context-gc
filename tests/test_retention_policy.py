@@ -1,3 +1,9 @@
+"""Tests for event retention policy logic.
+
+For a demonstration trace showing the 'importance=critical' protection feature,
+see the fixture: tests/fixtures/retention_policy_demo.json.
+"""
+
 import pytest
 from context_gc.graph import StateGraph
 from context_gc.events import validate_event
