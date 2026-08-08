@@ -7,6 +7,8 @@ Deterministic, receipt-preserving context compaction middleware for AI agents wi
 * **Reduces token cost** by pruning obsolete event paths and redundant actions.
 * **Avoids stale-context confusion** by removing overridden variables and dead-end attempts.
 * **Zero added latency from AI calls** using a fully local, deterministic compaction engine.
+* **Retention Policy Control** through optional metadata (`importance`, `tags`, `retain_until`) to protect critical events from being pruned.
+* **CLI Auditing & Inspection** (`context-gc` command) to compact, dry-run, explain pruning decisions, diff prompts, and restore receipts.
 
 ## Description
 
